@@ -1,0 +1,9 @@
+# Skip pre-commit hook if it's a semantic-release commit (with [skip ci])
+if git log -1 --pretty=%B | grep -q '\[skip ci\]'; then
+  echo "Skipping pre-commit hook for semantic-release commit"
+  exit 0
+fi
+
+npm run test:type
+npm run test:unit
+npm run prettier:check
