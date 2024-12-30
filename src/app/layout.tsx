@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Next.js starter",
-  description: "Next.js starter",
+  title: "PayHive",
+  description:
+    "Split bills with friends, track memberships, and manage shared expenses.",
 };
 
 export default function RootLayout({
@@ -13,7 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body>{children}</body>
+      <body>
+        <header>header</header>
+        {children}
+        <footer>footer</footer>
+      </body>
     </html>
   );
 }

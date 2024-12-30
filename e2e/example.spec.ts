@@ -11,23 +11,12 @@ test("has all the accessible elements", async ({ page }) => {
 
   await expect(
     page.getByRole("heading", {
-      name: /Unleashing Creativity: Powered by Generative AI/i,
+      name: /PayHive/i,
     }),
   ).toBeVisible();
   await expect(
-    page.getByText("Announcing our next round of funding."),
+    page.getByRole("heading", {
+      name: /Split bills with friends, track memberships, and manage shared expenses./i,
+    }),
   ).toBeVisible();
-  await expect(
-    page.getByText(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eleifend tempor nisi, eget suscipit ante elementum ac. Praesent euismod arcu lacus, sit amet mollis libero egestas vel.",
-    ),
-  ).toBeVisible();
-  await expect(page.getByRole("link", { name: /read more/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /get started/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /learn more/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /log in/i })).toBeVisible();
-  await expect(page.getByTestId("Product-desktop")).toBeVisible();
-  await expect(page.getByTestId("Features-desktop")).toBeVisible();
-  await expect(page.getByTestId("Marketplace-desktop")).toBeVisible();
-  await expect(page.getByTestId("Company-desktop")).toBeVisible();
 });
