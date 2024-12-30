@@ -44,21 +44,21 @@ jobs:
         run: npm install
       - name: Run the tests
         run: npm run test:unit
-  wait_for_vercel:
-    name: Wait for vercel
-    runs-on: ubuntu-latest
-    outputs:
-      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
-    steps:
-      - name: Wait for Vercel preview deployment to be ready
-        uses: patrickedqvist/wait-for-vercel-preview@main
-        id: waitForVercelPreviewDeployment
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          max_timeout: 120
+  #  wait_for_vercel:
+  #    name: Wait for vercel
+  #    runs-on: ubuntu-latest
+  #    outputs:
+  #      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
+  #    steps:
+  #      - name: Wait for Vercel preview deployment to be ready
+  #        uses: patrickedqvist/wait-for-vercel-preview@main
+  #        id: waitForVercelPreviewDeployment
+  #        with:
+  #          token: ${{ secrets.GITHUB_TOKEN }}
+  #          max_timeout: 120
   test_e2e:
     name: Test e2e
-    needs: wait_for_vercel
+    #    needs: wait_for_vercel
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
