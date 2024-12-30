@@ -1,3 +1,13 @@
+# 1.0.0 (2024-12-30)
+
+
+### Features
+
+* remove test e2e ([1625cae](https://github.com/imevanc/payhive/commit/1625caefb3ee7139f90d39fe78b82aec291b7b3a))
+* remove wait for vercel ([fb2f026](https://github.com/imevanc/payhive/commit/fb2f026e225cf6c537000db34e285fa6f54e8bd9))
+* update pipeline ([3e27b0f](https://github.com/imevanc/payhive/commit/3e27b0f488b847351676f726c6dd2441774da47f))
+* update the payhive template ([ef5b216](https://github.com/imevanc/payhive/commit/ef5b216faabc5613a01e57b7bbc7c99897fc785a))
+
 # [1.5.0](https://github.com/imevanc/nextjs-starter/compare/v1.4.2...v1.5.0) (2024-12-30)
 
 
