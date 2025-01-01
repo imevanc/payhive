@@ -1,5 +1,13 @@
+import { ReactNode } from "react";
 import type { Metadata } from "next";
+import { Rufina } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components";
+
+const rufina = Rufina({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "PayHive",
@@ -10,12 +18,12 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
-    <html>
+    <html className={rufina.className}>
       <body>
-        <header>header</header>
+        <Header />
         {children}
         <footer>footer</footer>
       </body>
