@@ -1,3 +1,14 @@
+# [1.1.0](https://github.com/imevanc/payhive/compare/v1.0.0...v1.1.0) (2025-01-01)
+
+
+### Features
+
+* add unit tests for the header component ([be5d592](https://github.com/imevanc/payhive/commit/be5d59201d863d6a8f62f3b0fa335d8ecb1e6a8a))
+* create the header component ([a39f1ab](https://github.com/imevanc/payhive/commit/a39f1ab91d5066283b84805427d1b76dcfad5a26))
+* default font to rufina ([bf0ecc1](https://github.com/imevanc/payhive/commit/bf0ecc193723825809e56f172e96bc42b4c1e56e))
+* integrate the header into the layout ([c66b0ea](https://github.com/imevanc/payhive/commit/c66b0ea3b6b80aa8f6293c7ca1e47d4ae29fe7c5))
+* remove npm token ([847e45b](https://github.com/imevanc/payhive/commit/847e45b162c55cb7dcd588ab4b3d34339eb5acf9))
+
 # 1.0.0 (2024-12-30)
 
 
