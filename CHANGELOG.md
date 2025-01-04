@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/imevanc/payhive/compare/v1.1.0...v1.2.0) (2025-01-04)
+
+
+### Features
+
+* update navbar styling ([#11](https://github.com/imevanc/payhive/issues/11)) ([b09fd14](https://github.com/imevanc/payhive/commit/b09fd14aa8ea9c32d1ef11760979243acdb2ce58))
+
 # [1.1.0](https://github.com/imevanc/payhive/compare/v1.0.0...v1.1.0) (2025-01-01)
 
 
