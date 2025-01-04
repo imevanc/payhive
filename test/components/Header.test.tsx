@@ -2,7 +2,7 @@ import { act, fireEvent, screen } from "@testing-library/react";
 import { Header } from "@/components";
 import { renderPage } from "../utils/renderPage";
 
-test.each(["Product", "Features", "Company", "Log in"])(
+test.each(["Home", "Features", "Company", "Log in"])(
   "renders navigation link with text %s",
   (linkText) => {
     renderPage(<Header />);
@@ -34,7 +34,7 @@ test("closes mobile menu when close button is clicked", async () => {
   ).not.toBeInTheDocument();
 });
 
-test.each(["Product", "Features", "Company", "Log in"])(
+test.each(["Home", "Features", "Company", "Log in"])(
   "renders mobile navigation link with text %s when menu is open",
   async (linkText) => {
     await act(async () => renderPage(<Header />));

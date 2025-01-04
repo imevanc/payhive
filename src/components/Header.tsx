@@ -1,10 +1,13 @@
 "use client";
 import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import { Bars3Icon, CakeIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Logo } from "@/icons";
+import { useSelectedPaths } from "@/hooks";
+import { toLowerCase } from "@/utils";
 
 const navigation: Array<Record<"name" | "href", string>> = [
-  { name: "Product", href: "#" },
+  { name: "Home", href: "#" },
   { name: "Features", href: "#" },
   { name: "Company", href: "#" },
   { name: "Log in", href: "#" },
@@ -12,7 +15,10 @@ const navigation: Array<Record<"name" | "href", string>> = [
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-
+  const { selectedPaths } = useSelectedPaths();
+  const selectedPath = "underlined text-gray-900 border-b-2 border-orange-600";
+  const nonSelectedPath =
+    "hover:border-b-2 hover:border-orange-300 hover:text-gray-800";
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <div className="mx-auto max-w-7xl">
@@ -23,7 +29,7 @@ export const Header = () => {
           >
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">PayHive</span>
-              <CakeIcon className="h-8 w-auto" />
+              <Logo className="h-16 w-auto" />
             </a>
             <button
               type="button"
@@ -38,7 +44,9 @@ export const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-sm/6 font-semibold text-gray-900"
+                  className={`text-xl font-semibold text-gray-600 
+                    ${selectedPaths[toLowerCase(item.name.toString()) as keyof typeof selectedPaths] ? selectedPath : nonSelectedPath}
+                  `}
                 >
                   {item.name}
                 </a>
@@ -55,9 +63,9 @@ export const Header = () => {
         <div className="fixed inset-0 z-50" />
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <a href="#" className="-m-1.5 py-1.5 pr-1.5">
               <span className="sr-only">PayHive</span>
-              <CakeIcon className="h-8 w-auto" />
+              <Logo className="h-16 w-auto" />
             </a>
             <button
               type="button"
@@ -75,6 +83,7 @@ export const Header = () => {
                   <a
                     key={item.name}
                     href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                   >
                     {item.name}
