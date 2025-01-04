@@ -1,18 +1,27 @@
 "use client";
 import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import { Bars3Icon, CakeIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Logo } from "@/icons";
+import { useSelectedPaths } from "@/hooks";
+import { toLowerCase } from "@/utils";
+import Link from "next/link";
 
 const navigation: Array<Record<"name" | "href", string>> = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Company", href: "#" },
-  { name: "Log in", href: "#" },
+  { name: "Home", href: "/" },
+  { name: "Features", href: "/features" },
+  { name: "Company", href: "/company" },
+  { name: "Log in", href: "/login" },
 ];
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-
+  const { selectedPaths } = useSelectedPaths();
+  const selectedPath = "underlined text-gray-900 border-b-2 border-orange-600";
+  const nonSelectedPath =
+    "hover:border-b-2 hover:border-orange-300 hover:text-gray-800";
+  const selectedPathMobile = "bg-orange-300";
+  const nonSelectedPathMobile = "hover:bg-orange-100";
   return (
     <header className="absolute inset-x-0 top-0 z-50">
       <div className="mx-auto max-w-7xl">
@@ -21,10 +30,10 @@ export const Header = () => {
             aria-label="Global"
             className="flex items-center justify-between lg:justify-start"
           >
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">PayHive</span>
-              <CakeIcon className="h-8 w-auto" />
-            </a>
+              <Logo className="h-20 w-auto" />
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
@@ -38,7 +47,9 @@ export const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-sm/6 font-semibold text-gray-900"
+                  className={`text-xl font-semibold text-gray-600 
+                    ${selectedPaths[toLowerCase(item.name.toString()) as keyof typeof selectedPaths] ? selectedPath : nonSelectedPath}
+                  `}
                 >
                   {item.name}
                 </a>
@@ -55,10 +66,10 @@ export const Header = () => {
         <div className="fixed inset-0 z-50" />
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href="/" className="-m-1.5 py-1.5 pr-1.5">
               <span className="sr-only">PayHive</span>
-              <CakeIcon className="h-8 w-auto" />
-            </a>
+              <Logo className="h-20 w-auto" />
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -72,22 +83,17 @@ export const Header = () => {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`-mx-3 block rounded-lg px-3 py-2 text-lg font-semibold text-gray-900 
+                      ${selectedPaths[toLowerCase(item.name.toString()) as keyof typeof selectedPaths] ? selectedPathMobile : nonSelectedPathMobile}
+                    `}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
-              </div>
-              <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
               </div>
             </div>
           </div>
