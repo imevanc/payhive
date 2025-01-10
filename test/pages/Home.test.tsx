@@ -3,16 +3,47 @@ import { expect, test } from "@jest/globals";
 import { renderPage } from "../utils/renderPage";
 import Home from "@/app/page";
 
-test("render the Homepage", async () => {
+test("render the Homepage", () => {
   renderPage(<Home />);
   expect(
     screen.getByRole("heading", {
-      name: /PayHive/i,
+      name: /Effortless Accounting, Bookkeeping, and Invoicing/i,
     }),
   ).toBeVisible();
   expect(
-    screen.getByRole("heading", {
-      name: /Split bills with friends, track memberships, and manage shared expenses./i,
+    screen.getByText(
+      /Focus on what you do best — we’ll handle the numbers. From tracking expenses to managing invoices, PayHive keeps your business buzzing smoothly./i,
+    ),
+  ).toBeVisible();
+  expect(
+    screen.getByRole("link", {
+      name: /Read more/i,
     }),
   ).toBeVisible();
+  expect(
+    screen.getByRole("link", {
+      name: /Read more/i,
+    }),
+  ).toHaveAttribute("href", "#");
+
+  expect(
+    screen.getByRole("link", {
+      name: /Read more/i,
+    }),
+  ).toBeVisible();
+  expect(
+    screen.getByRole("link", {
+      name: /Read more/i,
+    }),
+  ).toHaveAttribute("href", "#");
+  expect(
+    screen.getByRole("link", {
+      name: /Learn More About PayHive/i,
+    }),
+  ).toBeVisible();
+  expect(
+    screen.getByRole("link", {
+      name: /Learn More About PayHive/i,
+    }),
+  ).toHaveAttribute("href", "#");
 });
