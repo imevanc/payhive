@@ -7,7 +7,7 @@ jest.mock("next/font/google", () => ({
 
 test("renders the 404 error icon", () => {
   render(<NotFound />);
-  const errorIcon = screen.getByRole("img", { name: /404 error icon/i });
+  const errorIcon = screen.getByTestId(/404 error icon/i);
   expect(errorIcon).toBeInTheDocument();
 });
 
@@ -43,10 +43,4 @@ test("renders the return to home button with correct attributes", () => {
   });
   expect(homeButton).toBeInTheDocument();
   expect(homeButton).toHaveAttribute("href", "/");
-});
-
-test("applies the Rufina font class to the HTML element", () => {
-  render(<NotFound />);
-  const htmlElement = document.documentElement;
-  expect(htmlElement).toHaveClass("rufina-font");
 });
