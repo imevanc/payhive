@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/imevanc/payhive/compare/v1.2.1...v1.3.0) (2025-01-10)
+
+
+### Features
+
+* add error page ([#15](https://github.com/imevanc/payhive/issues/15)) ([83a47db](https://github.com/imevanc/payhive/commit/83a47db94579962cafdd25b9ee368d45196e73f2))
+
 ## [1.2.1](https://github.com/imevanc/payhive/compare/v1.2.0...v1.2.1) (2025-01-09)
 
 
