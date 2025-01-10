@@ -17,5 +17,6 @@ declare module "expect" {
      */
     toBeInTheDocument(): R;
     toBeVisible(): R;
+    toHaveAttribute(arg0: string, arg1: string): R;
   }
 }
