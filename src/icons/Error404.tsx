@@ -5,6 +5,7 @@ export const Error404 = () => (
     viewBox="0 0 592 421"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    aria-label="404 error icon"
   >
     <g clipPath="url(#clip0_2_31)">
       <path

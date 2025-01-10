@@ -23,7 +23,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html className={rufina.className}>
+    <html className={rufina.className} lang="en">
       <body>
         <SpeedInsights />
         <Analytics />
