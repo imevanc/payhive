@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/imevanc/payhive/compare/v1.3.0...v1.3.1) (2025-01-10)
+
+
+### Bug Fixes
+
+* update hero ([#16](https://github.com/imevanc/payhive/issues/16)) ([209206f](https://github.com/imevanc/payhive/commit/209206fd46361bff100a19466b47600213b6f881))
+
 # [1.3.0](https://github.com/imevanc/payhive/compare/v1.2.1...v1.3.0) (2025-01-10)
 
 
