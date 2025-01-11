@@ -1,11 +1,12 @@
-export const Dots = () => (
+import { FC } from "react";
+
+export const Dots: FC<{ className: string }> = ({ className }) => (
   <svg
-    width="1366"
-    height="768"
     viewBox="0 0 1366 768"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
+    className={className}
   >
     <path d="M0 0H1366V768H0V0Z" fill="url(#pattern0_2_3)" />
     <defs>

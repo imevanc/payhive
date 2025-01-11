@@ -1,12 +1,6 @@
 import type { NextPage } from "next/types";
-import { Rufina } from "next/font/google";
 import Link from "next/link";
 import { Dots, Error404 } from "@/icons";
-
-const rufina = Rufina({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "404 - Page Not Found",

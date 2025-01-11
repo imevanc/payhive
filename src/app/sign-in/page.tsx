@@ -7,7 +7,12 @@ type Inputs = {
 };
 
 const SignIn: NextPage = () => (
-  <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+  <div className="min-h-screen bg-gray-100 px-8 flex flex-col justify-center">
+    <div className="mb-4 sm:mx-auto sm:pr-40">
+      <h1 className="text-transparent bg-clip-text bg-gradient-to-l from-orange-200 to-orange-700 text-4xl">
+        PayHive Bzzz . . .
+      </h1>
+    </div>
     <div className="relative py-3 sm:max-w-xl sm:mx-auto">
       <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
       <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
@@ -118,7 +123,7 @@ const SignIn: NextPage = () => (
               href="#"
               className="text-orange-700 underline hover:text-orange-500"
             >
-              Start a 14-day free trial
+              Start a 7-day free trial
             </Link>
           </h5>
         </div>
