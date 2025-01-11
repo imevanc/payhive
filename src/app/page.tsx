@@ -10,7 +10,7 @@ const Home: NextPage = () => (
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
             aria-hidden="true"
-            className="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform fill-white lg:block"
+            className="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform fill-gray-50 lg:block"
           >
             <polygon points="0,0 90,0 50,100 0,100" />
           </svg>
