@@ -1,11 +1,6 @@
 import type { NextPage } from "next/types";
 import Link from "next/link";
 
-type Inputs = {
-  email: string;
-  password: string;
-};
-
 const SignIn: NextPage = () => (
   <div className="min-h-screen bg-gray-100 px-8 flex flex-col justify-center">
     <div className="mb-4 sm:mx-auto sm:pr-40">
