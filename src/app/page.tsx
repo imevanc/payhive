@@ -10,7 +10,7 @@ const Home: NextPage = () => (
             viewBox="0 0 100 100"
             preserveAspectRatio="none"
             aria-hidden="true"
-            className="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform fill-white lg:block"
+            className="absolute inset-y-0 right-8 hidden h-full w-80 translate-x-1/2 transform fill-gray-50 lg:block"
           >
             <polygon points="0,0 90,0 50,100 0,100" />
           </svg>
@@ -30,7 +30,7 @@ const Home: NextPage = () => (
                 </div>
               </div>
               <h1 className="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-                Effortless Accounting, Bookkeeping, and Invoicing
+                Effortless Accounting, Bookkeeping & Invoicing
               </h1>
               <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
                 Focus on what you do best — we’ll handle the numbers. From

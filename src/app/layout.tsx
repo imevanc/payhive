@@ -23,8 +23,8 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html className={rufina.className} lang="en">
-      <body>
+    <html className={`h-full bg-gray-50 ${rufina.className}`} lang="en">
+      <body className="h-full">
         <SpeedInsights />
         <Analytics />
         <Header />

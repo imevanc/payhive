@@ -1,21 +1,15 @@
 import type { NextPage } from "next/types";
-import { Rufina } from "next/font/google";
 import Link from "next/link";
 import { Dots, Error404 } from "@/icons";
-
-const rufina = Rufina({
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "404 - Page Not Found",
 };
 
 const NotFound: NextPage = () => (
-  <div className="relative mt-20 md:mt-36">
+  <div className="relative mt-20 md:mt-36 w-full">
     <div className="absolute inset-0 z-0 overflow-hidden">
-      <Dots />
+      <Dots className="mx-auto opacity-30" />
     </div>
     <div className="text-center relative z-10 flex flex-col justify-center items-center space-y-10 px-8 md:px-2">
       <Error404 />

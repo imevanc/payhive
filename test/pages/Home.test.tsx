@@ -7,7 +7,7 @@ test("render the Homepage", () => {
   renderPage(<Home />);
   expect(
     screen.getByRole("heading", {
-      name: /Effortless Accounting, Bookkeeping, and Invoicing/i,
+      name: /Effortless Accounting, Bookkeeping & Invoicing/i,
     }),
   ).toBeVisible();
   expect(
@@ -25,25 +25,24 @@ test("render the Homepage", () => {
       name: /Read more/i,
     }),
   ).toHaveAttribute("href", "#");
-
   expect(
     screen.getByRole("link", {
-      name: /Read more/i,
+      name: /Learn More About PayHive/i,
     }),
   ).toBeVisible();
   expect(
     screen.getByRole("link", {
-      name: /Read more/i,
+      name: /Learn More About PayHive/i,
     }),
   ).toHaveAttribute("href", "#");
   expect(
     screen.getByRole("link", {
-      name: /Learn More About PayHive/i,
+      name: /Get started Today/i,
     }),
   ).toBeVisible();
   expect(
     screen.getByRole("link", {
-      name: /Learn More About PayHive/i,
+      name: /Get started Today/i,
     }),
   ).toHaveAttribute("href", "#");
 });
