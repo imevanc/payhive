@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/imevanc/payhive/compare/v1.3.1...v1.4.0) (2025-01-11)
+
+
+### Features
+
+* add signin page ([#17](https://github.com/imevanc/payhive/issues/17)) ([3c85c5b](https://github.com/imevanc/payhive/commit/3c85c5b265fba8936dc6f6f62a6382590c00281c))
+
 ## [1.3.1](https://github.com/imevanc/payhive/compare/v1.3.0...v1.3.1) (2025-01-10)
 
 
