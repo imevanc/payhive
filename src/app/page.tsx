@@ -30,7 +30,7 @@ const Home: NextPage = () => (
                 </div>
               </div>
               <h1 className="text-pretty text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-                Effortless Accounting, Bookkeeping, and Invoicing
+                Effortless Accounting, Bookkeeping & Invoicing
               </h1>
               <p className="mt-8 text-pretty text-lg font-medium text-gray-500 sm:text-xl/8">
                 Focus on what you do best — we’ll handle the numbers. From

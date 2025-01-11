@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import NotFound from "@/app/not-found";
 
 jest.mock("next/font/google", () => ({
@@ -43,4 +43,6 @@ test("renders the return to home button with correct attributes", () => {
   });
   expect(homeButton).toBeInTheDocument();
   expect(homeButton).toHaveAttribute("href", "/");
+  fireEvent.click(homeButton);
+  expect(window.location.pathname).toBe("/");
 });
