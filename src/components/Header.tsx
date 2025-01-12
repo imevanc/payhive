@@ -7,18 +7,16 @@ import { useSelectedPaths } from "@/hooks";
 import { toKebabCaseUrl } from "@/utils";
 import Link from "next/link";
 
-const navigation: Array<Record<"name" | "href", string>> = [
+const tabs: Array<Record<"name" | "href", string>> = [
   { name: "Home", href: "/" },
   { name: "What We Offer", href: "/what-we-offer" },
   { name: "About Us", href: "/about-us" },
-  { name: "Log In", href: "/login" },
+  { name: "Sign In", href: "/sign-in" },
 ];
-console.log(toKebabCaseUrl(navigation[0].name));
-console.log(toKebabCaseUrl(navigation[1].name));
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const { selectedPaths } = useSelectedPaths();
-  console.log(selectedPaths);
+
   const selectedPath = "underlined text-gray-900 border-b-2 border-orange-600";
   const nonSelectedPath =
     "hover:border-b-2 hover:border-orange-300 hover:text-gray-800";
@@ -45,15 +43,15 @@ export const Header = () => {
               <Bars3Icon aria-hidden="true" className="size-6" />
             </button>
             <div className="hidden lg:ml-12 lg:flex lg:gap-x-14">
-              {navigation.map((item) => (
+              {tabs.map((tab) => (
                 <a
-                  key={item.name}
-                  href={item.href}
+                  key={tab.name}
+                  href={tab.href}
                   className={`text-xl font-semibold text-gray-600 text-nowrap
-                    ${selectedPaths[toKebabCaseUrl(item.name) as keyof typeof selectedPaths] ? selectedPath : nonSelectedPath}
+                    ${selectedPaths[toKebabCaseUrl(tab.name) as keyof typeof selectedPaths] ? selectedPath : nonSelectedPath}
                   `}
                 >
-                  {item.name}
+                  {tab.name}
                 </a>
               ))}
             </div>
@@ -84,16 +82,16 @@ export const Header = () => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                {navigation.map((item) => (
+                {tabs.map((tab) => (
                   <Link
-                    key={item.name}
-                    href={item.href}
+                    key={tab.name}
+                    href={tab.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`-mx-3 block rounded-lg px-3 py-2 text-lg font-semibold text-gray-900 
-                      ${selectedPaths[toKebabCaseUrl(item.name) as keyof typeof selectedPaths] ? selectedPathMobile : nonSelectedPathMobile}
+                      ${selectedPaths[toKebabCaseUrl(tab.name) as keyof typeof selectedPaths] ? selectedPathMobile : nonSelectedPathMobile}
                     `}
                   >
-                    {item.name}
+                    {tab.name}
                   </Link>
                 ))}
               </div>
