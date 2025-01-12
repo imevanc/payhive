@@ -4,19 +4,21 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Logo } from "@/icons";
 import { useSelectedPaths } from "@/hooks";
-import { toLowerCase } from "@/utils";
+import { toKebabCaseUrl } from "@/utils";
 import Link from "next/link";
 
 const navigation: Array<Record<"name" | "href", string>> = [
   { name: "Home", href: "/" },
-  { name: "Features", href: "/features" },
-  { name: "Company", href: "/company" },
-  { name: "Log in", href: "/login" },
+  { name: "What We Offer", href: "/what-we-offer" },
+  { name: "About Us", href: "/about-us" },
+  { name: "Log In", href: "/login" },
 ];
-
+console.log(toKebabCaseUrl(navigation[0].name));
+console.log(toKebabCaseUrl(navigation[1].name));
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const { selectedPaths } = useSelectedPaths();
+  console.log(selectedPaths);
   const selectedPath = "underlined text-gray-900 border-b-2 border-orange-600";
   const nonSelectedPath =
     "hover:border-b-2 hover:border-orange-300 hover:text-gray-800";
@@ -47,8 +49,8 @@ export const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`text-xl font-semibold text-gray-600 
-                    ${selectedPaths[toLowerCase(item.name.toString()) as keyof typeof selectedPaths] ? selectedPath : nonSelectedPath}
+                  className={`text-xl font-semibold text-gray-600 text-nowrap
+                    ${selectedPaths[toKebabCaseUrl(item.name) as keyof typeof selectedPaths] ? selectedPath : nonSelectedPath}
                   `}
                 >
                   {item.name}
@@ -88,7 +90,7 @@ export const Header = () => {
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`-mx-3 block rounded-lg px-3 py-2 text-lg font-semibold text-gray-900 
-                      ${selectedPaths[toLowerCase(item.name.toString()) as keyof typeof selectedPaths] ? selectedPathMobile : nonSelectedPathMobile}
+                      ${selectedPaths[toKebabCaseUrl(item.name) as keyof typeof selectedPaths] ? selectedPathMobile : nonSelectedPathMobile}
                     `}
                   >
                     {item.name}
