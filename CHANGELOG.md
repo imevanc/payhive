@@ -1,3 +1,11 @@
+## [1.4.1](https://github.com/imevanc/payhive/compare/v1.4.0...v1.4.1) (2025-01-12)
+
+
+### Bug Fixes
+
+* add update hero section ([#19](https://github.com/imevanc/payhive/issues/19)) ([3b3fec7](https://github.com/imevanc/payhive/commit/3b3fec7b501fb59ab775fdaeb46ccf774e890dfd))
+* fix navigation ([#20](https://github.com/imevanc/payhive/issues/20)) ([83b23a3](https://github.com/imevanc/payhive/commit/83b23a36bd820384eede96ca5d4bea513bc681f2))
+
 # [1.4.0](https://github.com/imevanc/payhive/compare/v1.3.1...v1.4.0) (2025-01-11)
 
 
