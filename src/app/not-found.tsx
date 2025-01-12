@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 const NotFound: NextPage = () => (
-  <div className="relative mt-20 md:mt-36 w-full">
+  <div className="relative mt-20 md:mt-36 mb-10 w-full">
     <div className="absolute inset-0 z-0 overflow-hidden">
       <Dots className="mx-auto opacity-30" />
     </div>

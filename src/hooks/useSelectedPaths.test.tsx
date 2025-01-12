@@ -13,41 +13,41 @@ test("should return correct selected paths for home", () => {
   const { result } = renderHook(() => useSelectedPaths());
   expect(result.current.selectedPaths).toEqual({
     home: true,
-    features: false,
-    company: false,
-    login: false,
+    "what-we-offer": false,
+    "about-us": false,
+    "sign-in": false,
   });
 });
 
 test("should return correct selected paths for features", () => {
-  mockUsePathname.mockImplementation(() => "/features");
+  mockUsePathname.mockImplementation(() => "/what-we-offer");
   const { result } = renderHook(() => useSelectedPaths());
   expect(result.current.selectedPaths).toEqual({
     home: false,
-    features: true,
-    company: false,
-    login: false,
+    "what-we-offer": true,
+    "about-us": false,
+    "sign-in": false,
   });
 });
 
 test("should return correct selected paths for company", () => {
-  mockUsePathname.mockImplementation(() => "/company");
+  mockUsePathname.mockImplementation(() => "/about-us");
   const { result } = renderHook(() => useSelectedPaths());
   expect(result.current.selectedPaths).toEqual({
     home: false,
-    features: false,
-    company: true,
-    login: false,
+    "what-we-offer": false,
+    "about-us": true,
+    "sign-in": false,
   });
 });
 
-test("should return correct selected paths for login", () => {
-  mockUsePathname.mockImplementation(() => "/login");
+test("should return correct selected paths for signin", () => {
+  mockUsePathname.mockImplementation(() => "/sign-in");
   const { result } = renderHook(() => useSelectedPaths());
   expect(result.current.selectedPaths).toEqual({
     home: false,
-    features: false,
-    company: false,
-    login: true,
+    "what-we-offer": false,
+    "about-us": false,
+    "sign-in": true,
   });
 });

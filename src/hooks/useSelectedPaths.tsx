@@ -3,12 +3,12 @@ import { usePathname } from "next/navigation";
 
 export const useSelectedPaths = () => {
   const [selectedPaths, setSelectedPaths] = useState<
-    Record<"home" | "features" | "company" | "login", boolean>
+    Record<"home" | "what-we-offer" | "about-us" | "sign-in", boolean>
   >({
-    home: true,
-    features: false,
-    company: false,
-    login: false,
+    home: false,
+    "what-we-offer": false,
+    "about-us": false,
+    "sign-in": false,
   });
   const pathname = usePathname();
 
@@ -17,33 +17,33 @@ export const useSelectedPaths = () => {
       case "/":
         setSelectedPaths({
           home: true,
-          features: false,
-          company: false,
-          login: false,
+          "what-we-offer": false,
+          "about-us": false,
+          "sign-in": false,
         });
         break;
-      case "/features":
+      case "/what-we-offer":
         setSelectedPaths({
           home: false,
-          features: true,
-          company: false,
-          login: false,
+          "what-we-offer": true,
+          "about-us": false,
+          "sign-in": false,
         });
         break;
-      case "/company":
+      case "/about-us":
         setSelectedPaths({
           home: false,
-          features: false,
-          company: true,
-          login: false,
+          "what-we-offer": false,
+          "about-us": true,
+          "sign-in": false,
         });
         break;
-      case "/login":
+      case "/sign-in":
         setSelectedPaths({
           home: false,
-          features: false,
-          company: false,
-          login: true,
+          "what-we-offer": false,
+          "about-us": false,
+          "sign-in": true,
         });
         break;
     }

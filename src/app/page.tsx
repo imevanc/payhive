@@ -2,7 +2,7 @@ import type { NextPage } from "next/types";
 import Link from "next/link";
 
 const Home: NextPage = () => (
-  <main className="mt-24 flex flex-col space-y-4 md:space-y-0 md:flex-row md:flex-nowrap justify-center md:justify-end items-center max-w-7xl mx-auto">
+  <main className="mt-24 mb-10 md:mb-0 flex flex-col space-y-4 md:space-y-0 md:flex-row md:flex-nowrap justify-center md:justify-end items-center max-w-7xl mx-auto">
     <div className="z-10 lg:w-full lg:max-w-2xl">
       <div className="px-6 py-6 lg:px-8 lg:py-10">
         <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
