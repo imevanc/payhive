@@ -1,3 +1,12 @@
+## [1.4.2](https://github.com/imevanc/payhive/compare/v1.4.1...v1.4.2) (2025-02-26)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @vercel/analytics to v1.5.0 ([#33](https://github.com/imevanc/payhive/issues/33)) ([9916c8f](https://github.com/imevanc/payhive/commit/9916c8f9ff0bdb0765efc9174eab0aba7b8bad46))
+* **deps:** update dependency @vercel/speed-insights to v1.2.0 ([#34](https://github.com/imevanc/payhive/issues/34)) ([3fc918b](https://github.com/imevanc/payhive/commit/3fc918bb804087110f8ae9f9d73b86ee0f0d140f))
+* **deps:** update dependency next to v15.1.7 ([#26](https://github.com/imevanc/payhive/issues/26)) ([508c60f](https://github.com/imevanc/payhive/commit/508c60f1879c3ece48d13b787d190ccf50eb39c7))
+
 ## [1.4.1](https://github.com/imevanc/payhive/compare/v1.4.0...v1.4.1) (2025-01-12)
 
 
