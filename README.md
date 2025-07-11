@@ -1,5 +1,4 @@
-# PayhHive Monorepo
-
+# PayhHive
 
 
 ### Run unit tests
