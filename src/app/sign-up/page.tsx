@@ -128,13 +128,13 @@ export default function SignUpPage() {
               className="ml-2 text-sm lg:text-base text-gray-600"
             >
               I agree to the{" "}
-              <a href="#" className="text-green-600 hover:underline">
+              <Link href="#" className="text-green-600 hover:underline">
                 Terms of Service
-              </a>{" "}
+              </Link>{" "}
               and{" "}
-              <a href="#" className="text-green-600 hover:underline">
+              <Link href="#" className="text-green-600 hover:underline">
                 Privacy Policy
-              </a>
+              </Link>
             </label>
           </div>
 

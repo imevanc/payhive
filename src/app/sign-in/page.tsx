@@ -73,12 +73,12 @@ export default function SignInPage() {
                 Remember me
               </label>
             </div>
-            <a
+            <Link
               href="#"
               className="text-sm lg:text-base text-green-600 hover:underline"
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
 
           <button
@@ -91,9 +91,9 @@ export default function SignInPage() {
           <div className="mt-6 text-center">
             <p className="text-sm lg:text-base text-gray-600">
               Not a member?{" "}
-              <a href="#" className="text-green-600 hover:underline">
+              <Link href="/sign-up" className="text-green-600 hover:underline">
                 Start a free trial
-              </a>
+              </Link>
             </p>
           </div>
         </div>
