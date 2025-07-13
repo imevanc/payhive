@@ -5,10 +5,17 @@ import {
   ChevronRightIcon,
   CreditCardIcon,
   DocumentTextIcon,
+  MinusIcon,
+  PlusIcon,
 } from "@heroicons/react/24/outline";
-import { FEATURES } from "@/constants";
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
+import { FAQS } from "@/constants";
 
-export default function Page() {
+export default function HomePage() {
   return (
     <main>
       <div className="container mx-auto px-6 py-8">
@@ -53,20 +60,20 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {FEATURES.map((feature, idx) => (
-              <div
-                key={feature.title + idx}
-                className="bg-white rounded-lg p-6 shadow-sm border border-gray-200"
-              >
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
-          </div>
+          {/*<div className="grid md:grid-cols-3 gap-8 mb-16">*/}
+          {/*  {FEATURES.map((feature, idx) => (*/}
+          {/*    <div*/}
+          {/*      key={feature.title + idx}*/}
+          {/*      className="bg-white rounded-lg p-6 shadow-sm border border-gray-200"*/}
+          {/*    >*/}
+          {/*      <div className="mb-4">{feature.icon}</div>*/}
+          {/*      <h3 className="text-xl font-semibold text-gray-900 mb-3">*/}
+          {/*        {feature.title}*/}
+          {/*      </h3>*/}
+          {/*      <p className="text-gray-600">{feature.description}</p>*/}
+          {/*    </div>*/}
+          {/*  ))}*/}
+          {/*</div>*/}
 
           <div className="bg-white rounded-lg shadow-lg p-8 border border-gray-200">
             <div className="flex items-center justify-between mb-6">
@@ -146,6 +153,47 @@ export default function Page() {
               <div className="text-center">
                 <div className="text-2xl font-bold text-blue-900">100%</div>
                 <div className="text-sm text-gray-600">HMRC compliant</div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-white" data-testid="faqs">
+            <div className="mx-auto max-w-7xl px-6 py-20 lg:py-32">
+              <div className="mx-auto max-w-4xl">
+                <h2 className="font-semibold tracking-tight text-gray-900 text-3xl md:text-4xl">
+                  Frequently asked questions
+                </h2>
+                <dl className="mt-16 divide-y divide-gray-900/10">
+                  {FAQS.map((faq) => (
+                    <Disclosure
+                      key={faq.question}
+                      as="div"
+                      className="py-6 first:pt-0 last:pb-0"
+                    >
+                      <dt>
+                        <DisclosureButton className="group flex w-full items-start justify-between text-left text-gray-900">
+                          <span className="text-base/7 font-semibold">
+                            {faq.question}
+                          </span>
+                          <span className="ml-6 flex h-7 items-center">
+                            <PlusIcon
+                              aria-hidden="true"
+                              className="size-6 group-data-[open]:hidden"
+                            />
+                            <MinusIcon
+                              aria-hidden="true"
+                              className="size-6 group-[:not([data-open])]:hidden"
+                            />
+                          </span>
+                        </DisclosureButton>
+                      </dt>
+                      <DisclosurePanel as="dd" className="mt-2 pr-12">
+                        <p className="text-base/7 text-gray-600">
+                          {faq.answer}
+                        </p>
+                      </DisclosurePanel>
+                    </Disclosure>
+                  ))}
+                </dl>
               </div>
             </div>
           </div>

@@ -97,7 +97,10 @@ export const Header: FC<{
                   Sign In
                 </Link>
 
-                <button className="cursor-pointer bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                <button
+                  href="/sign-up"
+                  className="cursor-pointer bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+                >
                   Start Free Trial
                 </button>
               </div>
