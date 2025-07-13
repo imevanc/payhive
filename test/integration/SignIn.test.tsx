@@ -1,7 +1,12 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import SignInPage from "@/app/sign-in/page";
+import { useRouter } from "next/router";
 
 const mockConsoleLog = jest.fn();
+const mockUseRouter = useRouter as jest.MockedFunction<typeof useRouter>;
+jest.mock("next/router", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("SignInPage", () => {
   beforeEach(() => {
