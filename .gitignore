@@ -43,3 +43,11 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+/generated/prisma
+
+/generated/prisma
+
+/generated/prisma
+
+/generated/prisma
