@@ -22,6 +22,12 @@ jest.mock("@heroicons/react/24/outline", () => ({
   ArrowRightIcon: ({ className, ...props }: any) => (
     <svg data-testid="arrow-right-icon" className={className} {...props} />
   ),
+  PlusIcon: ({ className, ...props }: any) => (
+    <svg data-testid="plus-icon" className={className} {...props} />
+  ),
+  MinusIcon: ({ className, ...props }: any) => (
+    <svg data-testid="minus-icon" className={className} {...props} />
+  ),
 }));
 
 describe("HomePage Component", () => {
