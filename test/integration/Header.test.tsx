@@ -294,16 +294,9 @@ describe("Header Component", () => {
       });
       await user.click(menuButton);
 
-      const allTrialLinks = screen.getAllByRole("link", {
-        name: "Start Free Trial",
-      });
-      const mobileTrialLink = allTrialLinks.find(
-        (link) => link.getAttribute("href") === "/trial",
-      );
+      const mobileTrialLink = screen.getByTestId("mobile-signup-link");
 
-      if (mobileTrialLink) {
-        await user.click(mobileTrialLink);
-      }
+      await user.click(mobileTrialLink);
 
       await waitFor(() => {
         expect(screen.queryByTestId("dialog")).not.toBeInTheDocument();
