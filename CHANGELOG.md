@@ -1,3 +1,28 @@
+# [1.5.0](https://github.com/imevanc/payhive/compare/v1.4.3...v1.5.0) (2025-07-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency next to v15.3.5 ([#54](https://github.com/imevanc/payhive/issues/54)) ([a032510](https://github.com/imevanc/payhive/commit/a0325108bb19ab1c8df971c973ea426978dea611))
+* **deps:** update dependency next to v15.4.1 ([#61](https://github.com/imevanc/payhive/issues/61)) ([cf78a59](https://github.com/imevanc/payhive/commit/cf78a594494902dbcd41bc1688fea9e8f0f3f545))
+* **deps:** update prisma monorepo to v6.12.0 ([#63](https://github.com/imevanc/payhive/issues/63)) ([016f79b](https://github.com/imevanc/payhive/commit/016f79bc55e3241a96e8dfca3b69c7709f6258cb))
+
+
+### Features
+
+* add contact page ([#59](https://github.com/imevanc/payhive/issues/59)) ([7c58319](https://github.com/imevanc/payhive/commit/7c583192a58f4bf9a7511dd6841a6e8a9538a4e1))
+* add github release pipleine ([#65](https://github.com/imevanc/payhive/issues/65)) ([f07e846](https://github.com/imevanc/payhive/commit/f07e846cc68c5dd0492d119a66bb8f7fb732cf12))
+* add pricing page ([#57](https://github.com/imevanc/payhive/issues/57)) ([45df821](https://github.com/imevanc/payhive/commit/45df821c644a922a0064ed28256f5ab9bc2594a5))
+* clean up repo ([#48](https://github.com/imevanc/payhive/issues/48)) ([537501d](https://github.com/imevanc/payhive/commit/537501df3549f3b358d1cb99ecd4e2baca1ad884))
+* cleanup ([778f590](https://github.com/imevanc/payhive/commit/778f59025c77f078a853acd41b9fb07f9a927d05))
+* configure prisma, supabase and nextauth ([#58](https://github.com/imevanc/payhive/issues/58)) ([7693698](https://github.com/imevanc/payhive/commit/7693698304f44782f22ca3102461c5e3d148f9ba))
+* **create-turbo:** apply official-starter transform ([f87b159](https://github.com/imevanc/payhive/commit/f87b159137faa758c9e44b671f021e7854ad6fc3))
+* **create-turbo:** apply pnpm-eslint transform ([fc65d6f](https://github.com/imevanc/payhive/commit/fc65d6f5ce380944eab41a9e30161fbc9f15e65e))
+* **create-turbo:** install dependencies ([43c608f](https://github.com/imevanc/payhive/commit/43c608feed85e9a16530632ec5f359e59735b2cb))
+* housekeeping ([7ce9112](https://github.com/imevanc/payhive/commit/7ce91121f562eb341e53e980a774dfee7fadf738))
+* integrate the faqs section ([#60](https://github.com/imevanc/payhive/issues/60)) ([20c1e69](https://github.com/imevanc/payhive/commit/20c1e691a9a0027ede1cb3abd212d7c7a70dfe48))
+* update free start trial link and tests ([#64](https://github.com/imevanc/payhive/issues/64)) ([8cddb2b](https://github.com/imevanc/payhive/commit/8cddb2b6df9131abcae96a8ff5ec7086ca2c4d4a))
+
 ## [1.5.8](https://github.com/imevanc/nextjs-starter/compare/v1.5.7...v1.5.8) (2025-06-28)
 
 
