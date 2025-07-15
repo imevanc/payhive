@@ -170,7 +170,8 @@ export const Header: FC<{
                   Sign In
                 </Link>
                 <Link
-                  href="/trial"
+                  data-testid="mobile-signup-link"
+                  href="/sign-up"
                   className="-mx-3 block rounded-lg px-3 py-3 text-lg font-semibold bg-green-700 text-white hover:bg-green-800 transition-colors text-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >
