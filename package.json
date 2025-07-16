@@ -19,8 +19,10 @@
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "@prisma/client": "^6.11.1",
+    "bcrypt-ts": "^7.1.0",
     "next": "15.4.1",
     "next-auth": "^4.24.11",
+    "postgres": "^3.4.7",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
