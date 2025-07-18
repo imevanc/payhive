@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "../../generated/prisma";
 import { genSaltSync, hashSync } from "bcrypt-ts";
 
 const prisma = new PrismaClient();
 
 export async function getUser(email: string) {
-  return await prisma.user.findUnique({
+  return prisma.user.findUnique({
     where: {
       email: email,
     },
@@ -12,10 +12,10 @@ export async function getUser(email: string) {
 }
 
 export async function createUser(email: string, password: string) {
-  let salt = genSaltSync(10);
-  let hash = hashSync(password, salt);
+  const salt = genSaltSync(10);
+  const hash = hashSync(password, salt);
 
-  return await prisma.user.create({
+  return prisma.user.create({
     data: {
       email,
       password: hash,

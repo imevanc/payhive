@@ -1,13 +1,45 @@
-import NextAuth, {Session} from "next-auth";
+import NextAuth, { Session } from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { compare } from "bcrypt-ts";
+import { getUser } from "@/auth/db";
+import { PrismaClient } from "../../generated/prisma";
+
+const prisma = new PrismaClient();
 
 const authConfig = {
   pages: {
-    signIn: "/login",
+    signIn: "/sign-in",
   },
   providers: [
-    // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
-    // while this file is also used in non-Node.js environments
+    Credentials({
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(
+        credentials: Record<"email" | "password", string> | undefined,
+      ) {
+        if (!credentials?.email || !credentials?.password) return null;
+
+        const user = await getUser(credentials.email);
+        console.log("User found:", user);
+
+        if (!user) return null;
+
+        const passwordsMatch = await compare(
+          credentials.password,
+          user.password!,
+        );
+        if (passwordsMatch) {
+          const { password: _, ...userWithoutPassword } = user;
+          return userWithoutPassword;
+        }
+        return null;
+      },
+    }),
   ],
+  adapter: PrismaAdapter(prisma),
   callbacks: {
     authorized({
       auth,
@@ -31,4 +63,4 @@ const authConfig = {
 };
 
 // @ts-ignore
-export default NextAuth(authConfig);
+export const handler = NextAuth(authConfig);
