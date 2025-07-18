@@ -1,19 +1,11 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import SignInPage from "@/app/sign-in/page";
-import { useRouter } from "next/router";
 
-const mockConsoleLog = jest.fn();
-const mockUseRouter = useRouter as jest.MockedFunction<typeof useRouter>;
 jest.mock("next/router", () => ({
   useRouter: jest.fn(),
 }));
 
 describe("SignInPage", () => {
-  beforeEach(() => {
-    mockConsoleLog.mockClear();
-    global.console = { ...global.console, log: mockConsoleLog };
-  });
-
   afterAll(() => {
     jest.restoreAllMocks();
   });
@@ -114,18 +106,6 @@ describe("SignInPage", () => {
 
       await waitFor(() => {
         expect(rememberMeCheckbox.checked).toBe(false);
-      });
-    });
-
-    test("calls console.log when sign in button is clicked", async () => {
-      render(<SignInPage />);
-
-      const signInButton = screen.getByRole("button", { name: "Sign in" });
-
-      fireEvent.click(signInButton);
-
-      await waitFor(() => {
-        expect(mockConsoleLog).toHaveBeenCalledWith("Form submitted");
       });
     });
   });

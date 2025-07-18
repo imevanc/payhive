@@ -12,7 +12,7 @@ describe("Pricing Component", () => {
       expect(mainHeading).toBeInTheDocument();
 
       const tierHeadings = screen.getAllByRole("heading", { level: 3 });
-      expect(tierHeadings).toHaveLength(3); // One for each tier in mobile view
+      expect(tierHeadings).toHaveLength(3);
     });
 
     test("should have proper table structure for desktop view", () => {
@@ -28,7 +28,6 @@ describe("Pricing Component", () => {
       const columnHeaders = screen.getAllByRole("columnheader");
       expect(columnHeaders.length).toBeGreaterThan(0);
 
-      // Check tier names are properly marked as column headers
       expect(
         screen.getByRole("columnheader", { name: "Starter" }),
       ).toBeInTheDocument();
@@ -56,7 +55,6 @@ describe("Pricing Component", () => {
         expect(link).toHaveAttribute("aria-describedby");
         expect(link).toHaveAttribute("href", "#");
 
-        // Verify the aria-describedby points to a valid tier ID
         const describedBy = link.getAttribute("aria-describedby");
         expect(describedBy).toMatch(/tier-(starter|growth|scale)/);
       });
@@ -146,7 +144,6 @@ describe("Pricing Component", () => {
     test("should apply correct button styling for most popular tier", () => {
       const buyPlanLinks = screen.getAllByRole("link", { name: /buy plan/i });
 
-      // Find the Growth tier button (most popular)
       const growthButton = buyPlanLinks.find(
         (link) => link.getAttribute("aria-describedby") === "tier-growth",
       );
@@ -163,7 +160,6 @@ describe("Pricing Component", () => {
     test("should apply correct button styling for non-popular tiers", () => {
       const buyPlanLinks = screen.getAllByRole("link", { name: /buy plan/i });
 
-      // Find non-popular tier buttons (Starter and Scale)
       const nonPopularButtons = buyPlanLinks.filter((link) => {
         const describedBy = link.getAttribute("aria-describedby");
         return describedBy === "tier-starter" || describedBy === "tier-scale";
@@ -229,15 +225,12 @@ describe("Pricing Component", () => {
     test("should apply correct icon styling", () => {
       const table = screen.getByRole("table");
 
-      // Check for green icons (CheckIcon) - these should have text-green-600
       const greenIcons = table.querySelectorAll("svg.text-green-600");
       expect(greenIcons.length).toBeGreaterThan(0);
 
-      // Check for gray icons (MinusIcon) - these should have text-gray-400
       const grayIcons = table.querySelectorAll("svg.text-gray-400");
       expect(grayIcons.length).toBeGreaterThan(0);
 
-      // Verify sizing classes
       const sizedIcons = table.querySelectorAll(
         "svg.mx-auto.size-5, svg.h-6.w-5",
       );
