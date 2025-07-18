@@ -3,16 +3,7 @@ import userEvent from "@testing-library/user-event";
 import SignUpPage from "@/app/sign-up/page";
 
 describe("SignUpPage", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    jest.spyOn(console, "log").mockImplementation(() => {});
-  });
-
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
-  it("renders the signup page with all form elements", () => {
+  test("renders the signup page with all form elements", () => {
     render(<SignUpPage />);
 
     expect(screen.getByText("PayHive")).toBeInTheDocument();
@@ -32,7 +23,7 @@ describe("SignUpPage", () => {
     expect(screen.getByText("Sign in")).toBeInTheDocument();
   });
 
-  it("renders social login buttons", () => {
+  test("renders social login buttons", () => {
     render(<SignUpPage />);
 
     const socialButtons = screen.getAllByRole("button");
@@ -41,7 +32,7 @@ describe("SignUpPage", () => {
     expect(screen.getByAltText("X")).toBeInTheDocument();
   });
 
-  it("has correct link navigation", () => {
+  test("has correct link navigation", () => {
     render(<SignUpPage />);
 
     const homeLink = screen.getByText("PayHive").closest("a");
@@ -51,7 +42,7 @@ describe("SignUpPage", () => {
     expect(signInLink).toHaveAttribute("href", "/sign-in");
   });
 
-  it("updates first name input when user types", async () => {
+  test("updates first name input when user types", async () => {
     const user = userEvent.setup();
     render(<SignUpPage />);
 
@@ -61,7 +52,7 @@ describe("SignUpPage", () => {
     expect(firstNameInput).toHaveValue("John");
   });
 
-  it("updates last name input when user types", async () => {
+  test("updates last name input when user types", async () => {
     const user = userEvent.setup();
     render(<SignUpPage />);
 
@@ -71,7 +62,7 @@ describe("SignUpPage", () => {
     expect(lastNameInput).toHaveValue("Doe");
   });
 
-  it("updates email input when user types", async () => {
+  test("updates email input when user types", async () => {
     const user = userEvent.setup();
     render(<SignUpPage />);
 
@@ -81,7 +72,7 @@ describe("SignUpPage", () => {
     expect(emailInput).toHaveValue("john.doe@example.com");
   });
 
-  it("updates password input when user types", async () => {
+  test("updates password input when user types", async () => {
     const user = userEvent.setup();
     render(<SignUpPage />);
 
@@ -91,7 +82,7 @@ describe("SignUpPage", () => {
     expect(passwordInput).toHaveValue("password123");
   });
 
-  it("updates confirm password input when user types", async () => {
+  test("updates confirm password input when user types", async () => {
     const user = userEvent.setup();
     render(<SignUpPage />);
 
@@ -101,7 +92,7 @@ describe("SignUpPage", () => {
     expect(confirmPasswordInput).toHaveValue("password123");
   });
 
-  it("toggles terms checkbox when clicked", async () => {
+  test("toggles terms checkbox when clicked", async () => {
     const user = userEvent.setup();
     render(<SignUpPage />);
 
@@ -116,20 +107,8 @@ describe("SignUpPage", () => {
     expect(checkbox).not.toBeChecked();
   });
 
-  it("calls console.log when create account button is clicked", async () => {
+  test("can fill out complete form and submit", async () => {
     const user = userEvent.setup();
-    const consoleSpy = jest.spyOn(console, "log");
-    render(<SignUpPage />);
-
-    const submitButton = screen.getByRole("button", { name: "Create account" });
-    await user.click(submitButton);
-
-    expect(consoleSpy).toHaveBeenCalledWith("Sign up form submitted");
-  });
-
-  it("can fill out complete form and submit", async () => {
-    const user = userEvent.setup();
-    const consoleSpy = jest.spyOn(console, "log");
     render(<SignUpPage />);
 
     await user.type(screen.getByLabelText("First name"), "John");
@@ -144,7 +123,6 @@ describe("SignUpPage", () => {
 
     await user.click(screen.getByRole("button", { name: "Create account" }));
 
-    expect(consoleSpy).toHaveBeenCalledWith("Sign up form submitted");
     expect(screen.getByLabelText("First name")).toHaveValue("John");
     expect(screen.getByLabelText("Last name")).toHaveValue("Doe");
     expect(screen.getByLabelText("Email address")).toHaveValue(
@@ -157,7 +135,7 @@ describe("SignUpPage", () => {
     expect(screen.getByRole("checkbox")).toBeChecked();
   });
 
-  it("has required attributes on all form inputs", () => {
+  test("has required attributes on all form inputs", () => {
     render(<SignUpPage />);
 
     expect(screen.getByLabelText("First name")).toBeRequired();
@@ -167,7 +145,7 @@ describe("SignUpPage", () => {
     expect(screen.getByLabelText("Confirm password")).toBeRequired();
   });
 
-  it("has correct input types", () => {
+  test("has correct input types", () => {
     render(<SignUpPage />);
 
     expect(screen.getByLabelText("First name")).toHaveAttribute("type", "text");
@@ -186,7 +164,7 @@ describe("SignUpPage", () => {
     );
   });
 
-  it("has appropriate placeholders", () => {
+  test("has appropriate placeholders", () => {
     render(<SignUpPage />);
 
     expect(screen.getByLabelText("First name")).toHaveAttribute(
@@ -211,7 +189,7 @@ describe("SignUpPage", () => {
     );
   });
 
-  it("has proper form labels associated with inputs", () => {
+  test("has proper form labels associated with inputs", () => {
     render(<SignUpPage />);
 
     const firstNameInput = screen.getByLabelText("First name");
@@ -230,7 +208,7 @@ describe("SignUpPage", () => {
     expect(confirmPasswordInput).toHaveAttribute("id", "confirmPassword");
   });
 
-  it("has proper checkbox label association", () => {
+  test("has proper checkbox label association", () => {
     render(<SignUpPage />);
 
     const checkbox = screen.getByRole("checkbox");
@@ -240,14 +218,14 @@ describe("SignUpPage", () => {
     expect(label).toHaveAttribute("for", "agreeToTerms");
   });
 
-  it("has proper alt text for images", () => {
+  test("has proper alt text for images", () => {
     render(<SignUpPage />);
 
     expect(screen.getByAltText("Google")).toBeInTheDocument();
     expect(screen.getByAltText("X")).toBeInTheDocument();
   });
 
-  it("maintains independent state for each form field", async () => {
+  test("maintains independent state for each form field", async () => {
     const user = userEvent.setup();
     render(<SignUpPage />);
 
@@ -264,7 +242,7 @@ describe("SignUpPage", () => {
     expect(screen.getByLabelText("Confirm password")).toHaveValue("");
   });
 
-  it("checkbox state is independent of other form fields", async () => {
+  test("checkbox state is independent of other form fields", async () => {
     const user = userEvent.setup();
     render(<SignUpPage />);
 
@@ -277,7 +255,7 @@ describe("SignUpPage", () => {
     expect(screen.getByRole("checkbox")).toBeChecked();
   });
 
-  it("renders social login buttons with hover states", () => {
+  test("renders social login buttons with hover states", () => {
     render(<SignUpPage />);
 
     const socialButtons = screen

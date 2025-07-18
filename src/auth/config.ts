@@ -1,7 +1,7 @@
 import NextAuth, { Session } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { compare } from "bcrypt-ts";
+import { compare } from "bcrypt";
 import { getUser } from "@/auth/db";
 import { PrismaClient } from "../../generated/prisma";
 
@@ -23,7 +23,6 @@ const authConfig = {
         if (!credentials?.email || !credentials?.password) return null;
 
         const user = await getUser(credentials.email);
-        console.log("User found:", user);
 
         if (!user) return null;
 
