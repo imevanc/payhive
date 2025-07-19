@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/imevanc/payhive/compare/v1.5.0...v1.5.1) (2025-07-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency next to v15.4.2 ([#67](https://github.com/imevanc/payhive/issues/67)) ([0157505](https://github.com/imevanc/payhive/commit/0157505b724ecadf24e2ad0f7bbfbfe49a2c5629))
+
 # [1.5.0](https://github.com/imevanc/payhive/compare/v1.4.3...v1.5.0) (2025-07-15)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "nextjs-starter",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -22,7 +22,7 @@
     "@prisma/client": "^6.12.0",
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^6.0.0",
-    "next": "15.4.1",
+    "next": "15.4.2",
     "next-auth": "^4.24.11",
     "postgres": "^3.4.7",
     "react": "19.1.0",
