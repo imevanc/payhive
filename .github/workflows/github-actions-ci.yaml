@@ -28,8 +28,12 @@ jobs:
         with:
           node-version: "22"
       - name: Install Dependencies
+        env:
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
         run: npm install
       - name: Run the type tests
+        env:
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
         run: npm run test:type
   unit_tests:
     name: Unit Tests
@@ -41,8 +45,12 @@ jobs:
         with:
           node-version: "22"
       - name: Install Dependencies
+        env:
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
         run: npm install
       - name: Run the tests
+        env:
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
         run: npm run test:unit
 #  wait_for_vercel:
 #    name: Wait for vercel
