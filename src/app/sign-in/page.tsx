@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function SignInPage() {
   const [email, setEmail] = useState<string>("");
@@ -82,7 +83,13 @@ export default function SignInPage() {
           </div>
 
           <button
-            onClick={() => console.log("Form submitted")}
+            onClick={async () =>
+              await signIn("credentials", {
+                redirectTo: "/protected",
+                email,
+                password,
+              })
+            }
             className="w-full bg-green-700 hover:bg-green-800 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-lg font-semibold transition-colors duration-200 text-base lg:text-lg"
           >
             Sign in

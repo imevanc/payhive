@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { register } from "@/auth/db";
 
 export default function SignUpPage() {
   const [firstName, setFirstName] = useState<string>("");
@@ -139,7 +140,7 @@ export default function SignUpPage() {
           </div>
 
           <button
-            onClick={() => console.log("Sign up form submitted")}
+            onClick={() => register(email, password, firstName, lastName)}
             className="w-full bg-green-700 hover:bg-green-800 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-lg font-semibold transition-colors duration-200 text-base lg:text-lg"
           >
             Create account
