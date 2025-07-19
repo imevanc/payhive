@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/imevanc/payhive/compare/v1.5.1...v1.6.0) (2025-07-19)
+
+
+### Bug Fixes
+
+* update release pipeline ([#71](https://github.com/imevanc/payhive/issues/71)) ([5ce8a5c](https://github.com/imevanc/payhive/commit/5ce8a5cabab1100d72b0172b6ba228a418ad9ac7))
+
+
+### Features
+
+* add auth ([#66](https://github.com/imevanc/payhive/issues/66)) ([9e6eed4](https://github.com/imevanc/payhive/commit/9e6eed472e41132a619ab5a409ef1143567c804d))
+
 ## [1.5.1](https://github.com/imevanc/payhive/compare/v1.5.0...v1.5.1) (2025-07-19)
 
 
