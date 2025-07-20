@@ -115,7 +115,7 @@ export const Header: FC<{
                       callbackUrl: "/",
                     })
                   }
-                  className={`text-lg text-nowrap py-2 px-1 border-b-2 border-transparent ${nonSelectedPathClassName}`}
+                  className={`text-lg text-nowrap py-2 px-1 border-b-2 border-transparent ${nonSelectedPathClassName} hover:border-transparent`}
                 >
                   Sign Out
                 </button>
@@ -168,32 +168,52 @@ export const Header: FC<{
                   </Link>
                 ))}
               </div>
-              <div className="py-6 space-y-2">
-                <Link
-                  href="/sign-in"
-                  onMouseEnter={() => setMobileLinkHoveredTab("sign-in")}
-                  onMouseLeave={() => setMobileLinkHoveredTab(null)}
-                  className={`-mx-3 block rounded-lg px-3 py-3 text-lg font-semibold
+              {!session?.user ? (
+                <div className="py-6 space-y-2">
+                  <Link
+                    href="/sign-in"
+                    onMouseEnter={() => setMobileLinkHoveredTab("sign-in")}
+                    onMouseLeave={() => setMobileLinkHoveredTab(null)}
+                    className={`-mx-3 block rounded-lg px-3 py-3 text-lg font-semibold
                       ${
                         selectedPath["sign-in" as keyof typeof selectedPath]
                           ? selectedPathMobileClassName
                           : nonSelectedPathMobileClassName
                       }
                     `}
-                  style={getMobileTabStyle({ name: toKebabCase("sign-in") })}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Sign In
-                </Link>
-                <Link
-                  data-testid="mobile-signup-link"
-                  href="/sign-up"
-                  className="-mx-3 block rounded-lg px-3 py-3 text-lg font-semibold bg-green-700 text-white hover:bg-green-800 transition-colors text-center"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Start Free Trial
-                </Link>
-              </div>
+                    style={getMobileTabStyle({ name: toKebabCase("sign-in") })}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    data-testid="mobile-signup-link"
+                    href="/sign-up"
+                    className="-mx-3 block rounded-lg px-3 py-3 text-lg font-semibold bg-green-700 text-white hover:bg-green-800 transition-colors text-center"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Start Free Trial
+                  </Link>
+                </div>
+              ) : (
+                <div className="py-6 space-y-2">
+                  <button
+                    className={`-mx-3 block rounded-lg px-3 py-3 text-lg font-semibold
+                      ${nonSelectedPathMobileClassName}
+                    `}
+                    style={getMobileTabStyle({ name: toKebabCase("sign-in") })}
+                    onClick={async () => {
+                      setMobileMenuOpen(false);
+                      await signOut({
+                        redirect: true,
+                        callbackUrl: "/",
+                      });
+                    }}
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </DialogPanel>

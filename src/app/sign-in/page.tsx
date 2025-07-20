@@ -85,7 +85,7 @@ export default function SignInPage() {
           <button
             onClick={async () =>
               await signIn("credentials", {
-                redirectTo: "/protected",
+                callbackUrl: "/",
                 email,
                 password,
               })
