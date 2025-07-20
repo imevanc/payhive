@@ -1,6 +1,7 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Header } from "@/components";
+import { renderWithProviders } from "../utils";
 
 jest.mock("next/link", () => {
   return ({ children, href, ...props }: any) => (
@@ -73,18 +74,18 @@ describe("Header Component", () => {
 
   describe("Basic Rendering", () => {
     test("renders the header with correct data-testid", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
       expect(screen.getByTestId("header-main")).toBeInTheDocument();
     });
 
     test("renders the PayHive logo/brand twice (desktop and mobile)", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
       expect(screen.getAllByText("PayHive")).toHaveLength(2);
     });
 
     test("renders all navigation tabs in both desktop and mobile", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       defaultTabs.forEach((tab) => {
         const links = screen.getAllByText(tab.name);
@@ -104,7 +105,7 @@ describe("Header Component", () => {
 
     test("renders Sign In and Start Free Trial buttons", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       expect(screen.getAllByText("Sign In")).toHaveLength(1);
       expect(screen.getAllByText("Start Free Trial")).toHaveLength(1);
@@ -121,7 +122,7 @@ describe("Header Component", () => {
 
   describe("Navigation Links", () => {
     test("renders navigation links with correct hrefs", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       defaultTabs.forEach((tab) => {
         const links = screen.getAllByRole("link", { name: tab.name });
@@ -136,7 +137,7 @@ describe("Header Component", () => {
         selectedPath: { home: true, "about-us": false, contact: false },
       });
 
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const homeLinks = screen.getAllByRole("link", { name: "Home" });
       const desktopHomeLink = homeLinks.find((link) =>
@@ -149,7 +150,7 @@ describe("Header Component", () => {
     });
 
     test("applies non-selected styling when tab is not active", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const aboutLinks = screen.getAllByRole("link", { name: "About Us" });
       const desktopAboutLink = aboutLinks.find((link) =>
@@ -165,7 +166,7 @@ describe("Header Component", () => {
         selectedPath: { home: true, "about-us": true, contact: false },
       });
 
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const homeLinks = screen.getAllByRole("link", { name: "Home" });
       const aboutLinks = screen.getAllByRole("link", { name: "About Us" });
@@ -189,7 +190,7 @@ describe("Header Component", () => {
 
   describe("Mobile Menu Functionality", () => {
     test("shows mobile menu button with correct icon", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -201,7 +202,7 @@ describe("Header Component", () => {
 
     test("opens mobile menu when menu button is clicked", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       expect(screen.queryByTestId("dialog")).not.toBeInTheDocument();
 
@@ -217,7 +218,7 @@ describe("Header Component", () => {
 
     test("closes mobile menu when close button is clicked", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -235,7 +236,7 @@ describe("Header Component", () => {
 
     test("closes mobile menu when navigation link is clicked", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -260,7 +261,7 @@ describe("Header Component", () => {
 
     test("closes mobile menu when Sign In link is clicked", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -287,7 +288,7 @@ describe("Header Component", () => {
 
     test("closes mobile menu when Start Free Trial link is clicked", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -307,7 +308,7 @@ describe("Header Component", () => {
   describe("Mobile Menu Hover Effects", () => {
     test("applies hover styles on mobile menu navigation links", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -347,7 +348,7 @@ describe("Header Component", () => {
       });
 
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -373,7 +374,7 @@ describe("Header Component", () => {
       });
 
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -399,14 +400,14 @@ describe("Header Component", () => {
 
   describe("Accessibility", () => {
     test("has proper ARIA labels and landmarks", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       expect(screen.getByRole("banner")).toBeInTheDocument(); // header element
       expect(screen.getByLabelText("Global")).toBeInTheDocument(); // nav element
     });
 
     test("has proper screen reader text", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       expect(
         screen.getAllByText("PayHive", { selector: ".sr-only" }),
@@ -418,7 +419,7 @@ describe("Header Component", () => {
 
     test("supports keyboard navigation for links", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const logoLinks = screen.getAllByRole("link", { name: /PayHive/i });
       const logoLink = logoLinks[0];
@@ -429,7 +430,7 @@ describe("Header Component", () => {
 
     test("has proper focus management in mobile menu", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -462,7 +463,7 @@ describe("Header Component", () => {
         tabs: [],
       };
 
-      render(<Header {...propsWithEmptyTabs} />);
+      renderWithProviders(<Header {...propsWithEmptyTabs} />);
 
       expect(screen.getByTestId("header-main")).toBeInTheDocument();
       expect(screen.getAllByText("PayHive")).toHaveLength(2);
@@ -500,7 +501,7 @@ describe("Header Component", () => {
         tabs: specialTabs,
       };
 
-      render(<Header {...propsWithSpecialTabs} />);
+      renderWithProviders(<Header {...propsWithSpecialTabs} />);
 
       expect(screen.getAllByText("FAQ & Help")).toHaveLength(1);
       expect(screen.getAllByText("Pricing (New)")).toHaveLength(1);
@@ -541,7 +542,7 @@ describe("Header Component", () => {
         tabs: longTabs,
       };
 
-      render(<Header {...propsWithLongTabs} />);
+      renderWithProviders(<Header {...propsWithLongTabs} />);
 
       const desktopLinks = screen.getAllByText(
         "This is a very long navigation item name that might wrap",
@@ -569,7 +570,7 @@ describe("Header Component", () => {
         selectedPath: null,
       });
 
-      expect(() => render(<Header {...defaultProps} />)).toThrow();
+      expect(() => renderWithProviders(<Header {...defaultProps} />)).toThrow();
     });
 
     test("handles missing selectedPath properties", () => {
@@ -577,7 +578,7 @@ describe("Header Component", () => {
         selectedPath: { home: true },
       });
 
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       expect(screen.getByTestId("header-main")).toBeInTheDocument();
 
@@ -592,7 +593,7 @@ describe("Header Component", () => {
   describe("State Management", () => {
     test("manages mobile menu state independently", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       expect(screen.queryByTestId("dialog")).not.toBeInTheDocument();
 
@@ -614,7 +615,7 @@ describe("Header Component", () => {
 
     test("manages hover state for mobile links independently", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -647,14 +648,14 @@ describe("Header Component", () => {
     });
 
     test("calls useSelectedPath hook exactly once", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
       expect(mockUseSelectedPath).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("Visual Design and Styling", () => {
     test("applies correct header styling classes", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const header = screen.getByTestId("header-main");
       expect(header).toHaveClass(
@@ -670,7 +671,7 @@ describe("Header Component", () => {
     });
 
     test("applies responsive navigation classes", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -682,7 +683,7 @@ describe("Header Component", () => {
     });
 
     test("applies correct button styling for Sign In and Start Free Trial", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const signInButtons = screen.getAllByText("Sign In");
       const trialButtons = screen.getAllByText("Start Free Trial");
@@ -705,7 +706,7 @@ describe("Header Component", () => {
     });
 
     test("applies correct transition classes for smooth animations", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const homeLinks = screen.getAllByRole("link", { name: "Home" });
       const desktopHomeLink = homeLinks.find((link) =>
@@ -721,7 +722,7 @@ describe("Header Component", () => {
 
     test("applies proper mobile menu panel styling", async () => {
       const user = userEvent.setup();
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       const menuButton = screen.getByRole("button", {
         name: /open main menu/i,
@@ -749,7 +750,7 @@ describe("Header Component", () => {
 
   describe("Integration", () => {
     test("integrates properly with Next.js Link component", () => {
-      render(<Header {...defaultProps} />);
+      renderWithProviders(<Header {...defaultProps} />);
 
       defaultTabs.forEach((tab) => {
         const links = screen.getAllByRole("link", { name: tab.name });
@@ -773,7 +774,7 @@ describe("Header Component", () => {
         },
       });
 
-      render(<Header {...defaultProps} tabs={tabsWithSpaces} />);
+      renderWithProviders(<Header {...defaultProps} tabs={tabsWithSpaces} />);
 
       const featureLinks = screen.getAllByRole("link", {
         name: "Product Features",

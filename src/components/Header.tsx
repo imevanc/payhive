@@ -18,9 +18,6 @@ export const Header: FC<{
   >(null);
   const { data: session, status } = useSession();
 
-  console.log("Session status:", status);
-  console.log("Session data:", session);
-
   const selectedPathClassName = `text-green-700 border-b-2 border-green-700 font-semibold`;
   const nonSelectedPathClassName =
     "text-gray-600 hover:text-green-700 hover:border-b-2 hover:border-green-300 font-semibold transition-colors";
