@@ -1,3 +1,15 @@
+# [1.7.0](https://github.com/imevanc/payhive/compare/v1.6.0...v1.7.0) (2025-07-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/bcrypt to v6 ([#70](https://github.com/imevanc/payhive/issues/70)) ([5a348c2](https://github.com/imevanc/payhive/commit/5a348c2c38285ce255d56ab8aa2408396be731ee))
+
+
+### Features
+
+* create authorisation flow ([#72](https://github.com/imevanc/payhive/issues/72)) ([f58ba7e](https://github.com/imevanc/payhive/commit/f58ba7e1ecb99d8da918b8e5d06aa85f4f06f5a4))
+
 # [1.6.0](https://github.com/imevanc/payhive/compare/v1.5.1...v1.6.0) (2025-07-19)
 
 
