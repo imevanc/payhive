@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/imevanc/payhive/compare/v1.7.0...v1.7.1) (2025-07-20)
+
+
+### Bug Fixes
+
+* update mobile authorisation ([#73](https://github.com/imevanc/payhive/issues/73)) ([18df52e](https://github.com/imevanc/payhive/commit/18df52e0bec614167bb22679e051624596fcdde6))
+
 # [1.7.0](https://github.com/imevanc/payhive/compare/v1.6.0...v1.7.0) (2025-07-20)
 
 
