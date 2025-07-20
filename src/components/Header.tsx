@@ -1,6 +1,7 @@
 "use client";
 import { FC, useState } from "react";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { toKebabCase } from "@/utils";
@@ -15,6 +16,7 @@ export const Header: FC<{
   const [mobileLinkHoveredTab, setMobileLinkHoveredTab] = useState<
     string | null
   >(null);
+  const { data: session, status } = useSession();
 
   const selectedPathClassName = `text-green-700 border-b-2 border-green-700 font-semibold`;
   const nonSelectedPathClassName =
@@ -80,30 +82,44 @@ export const Header: FC<{
                   {tab.name}
                 </Link>
               ))}
-              <div className="flex items-center space-x-4 ml-4">
-                <Link
-                  href="/sign-in"
-                  className={`text-lg text-nowrap py-2 px-1 border-b-2 border-transparent
+              {!session?.user ? (
+                <div className="flex items-center space-x-4 ml-4">
+                  <Link
+                    href="/sign-in"
+                    className={`text-lg text-nowrap py-2 px-1 border-b-2 border-transparent
                     ${selectedPath[toKebabCase("sign-in") as keyof typeof selectedPath] ? selectedPathClassName : nonSelectedPathClassName}
                   `}
-                  style={{
-                    borderColor: selectedPath[
-                      toKebabCase("sign-in") as keyof typeof selectedPath
-                    ]
-                      ? "#15803d"
-                      : "transparent",
-                  }}
-                >
-                  Sign In
-                </Link>
+                    style={{
+                      borderColor: selectedPath[
+                        toKebabCase("sign-in") as keyof typeof selectedPath
+                      ]
+                        ? "#15803d"
+                        : "transparent",
+                    }}
+                  >
+                    Sign In
+                  </Link>
 
-                <Link
-                  href="/sign-up"
-                  className="cursor-pointer bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+                  <Link
+                    href="/sign-up"
+                    className="cursor-pointer bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+                  >
+                    Start Free Trial
+                  </Link>
+                </div>
+              ) : (
+                <button
+                  onClick={async () =>
+                    await signOut({
+                      redirect: true,
+                      callbackUrl: "/",
+                    })
+                  }
+                  className={`text-lg text-nowrap py-2 px-1 border-b-2 border-transparent ${nonSelectedPathClassName}`}
                 >
-                  Start Free Trial
-                </Link>
-              </div>
+                  Sign Out
+                </button>
+              )}
             </div>
           </nav>
         </div>
