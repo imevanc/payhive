@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/imevanc/payhive/compare/v1.7.1...v1.7.2) (2025-07-21)
+
+
+### Bug Fixes
+
+* update the max width of the header and add integration tests ([#74](https://github.com/imevanc/payhive/issues/74)) ([682456f](https://github.com/imevanc/payhive/commit/682456f02397bb6c345aa441a4665bfb73e9ab16))
+
 ## [1.7.1](https://github.com/imevanc/payhive/compare/v1.7.0...v1.7.1) (2025-07-20)
 
 
