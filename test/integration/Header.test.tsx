@@ -149,6 +149,13 @@ describe("Header Component", () => {
       expect(desktopHomeLink).toHaveStyle({ borderColor: "#15803d" });
     });
 
+    test("should have max-w-10xl class on the container div", () => {
+      renderWithProviders(<Header {...defaultProps} />);
+      expect(screen.getByTestId("header-main")).toBeInTheDocument();
+      const headerContainer = screen.getByTestId("header-main");
+      expect(headerContainer.firstChild).toHaveClass("max-w-10xl");
+    });
+
     test("applies non-selected styling when tab is not active", () => {
       renderWithProviders(<Header {...defaultProps} />);
 
