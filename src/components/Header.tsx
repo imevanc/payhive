@@ -45,7 +45,7 @@ export const Header: FC<{
       className="sticky inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200"
       data-testid={`header-${dataTestId}`}
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-10xl">
         <div className="px-6 pt-4 pb-4 lg:max-w-none lg:px-8">
           <nav
             aria-label="Global"
