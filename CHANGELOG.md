@@ -1,3 +1,11 @@
+## [1.7.3](https://github.com/imevanc/payhive/compare/v1.7.2...v1.7.3) (2025-07-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.2.6 ([#76](https://github.com/imevanc/payhive/issues/76)) ([961556a](https://github.com/imevanc/payhive/commit/961556a51026303d9dcfddbcd54f479a91bfd70d))
+* **deps:** update dependency next to v15.4.4 ([#75](https://github.com/imevanc/payhive/issues/75)) ([4bf093b](https://github.com/imevanc/payhive/commit/4bf093b2b267e097443711c39a09fdfcc00b00a2))
+
 ## [1.7.2](https://github.com/imevanc/payhive/compare/v1.7.1...v1.7.2) (2025-07-21)
 
 
