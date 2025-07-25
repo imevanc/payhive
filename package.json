@@ -22,7 +22,7 @@
     "@prisma/client": "^6.12.0",
     "@types/bcrypt": "^6.0.0",
     "bcrypt": "^6.0.0",
-    "next": "15.4.2",
+    "next": "15.4.4",
     "next-auth": "^4.24.11",
     "postgres": "^3.4.7",
     "react": "19.1.0",
