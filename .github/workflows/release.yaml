@@ -33,4 +33,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
         run: npx semantic-release

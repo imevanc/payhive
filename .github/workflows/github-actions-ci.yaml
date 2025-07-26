@@ -47,10 +47,12 @@ jobs:
       - name: Install Dependencies
         env:
           POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
         run: npm install
       - name: Run the tests
         env:
           POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
         run: npm run test:unit
 #  wait_for_vercel:
 #    name: Wait for vercel
