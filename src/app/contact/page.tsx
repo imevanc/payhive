@@ -1,6 +1,50 @@
+"use client";
+import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/16/solid";
 
 export default function ContactPage() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const formData = new FormData(e.currentTarget);
+    const contactData = {
+      firstName: formData.get("first-name") as string,
+      lastName: formData.get("last-name") as string,
+      telephoneNumber: formData.get("phone-number") as string,
+      company: formData.get("company") as string,
+      email: formData.get("email") as string,
+      subject: formData.get("subject") as string,
+      message: formData.get("message") as string,
+    };
+
+    try {
+      const response = await fetch("/api/submitContactForm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contactData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setMessage(
+          "Thank you! Your message has been sent to our support team.",
+        );
+        (e.target as HTMLFormElement).reset();
+      } else {
+        setMessage("Sorry, something went wrong. Please try again.");
+      }
+    } catch (error) {
+      setMessage("An error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <main className="bg-white isolate px-6 py-8">
       <div
@@ -23,11 +67,7 @@ export default function ContactPage() {
           Aute magna irure deserunt veniam aliqua magna enim voluptate.
         </p>
       </div>
-      <form
-        action="#"
-        method="POST"
-        className="mx-auto mt-16 max-w-xl sm:mt-20"
-      >
+      <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
           <div>
             <label

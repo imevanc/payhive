@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ContactFormData } from "@/types";
-import { isValidEmail } from "@/utils";
+import { isValidEmail, sendEmail } from "@/utils";
 import { PrismaClient } from "../../../../generated/prisma";
+import { render } from "@react-email/render";
+import { ContactNotificationEmail } from "@/components";
 
 const prisma = new PrismaClient();
 
@@ -24,6 +26,18 @@ const validateContactForm = (
     data.lastName.trim().length === 0
   ) {
     errors.push("LastName is required");
+  }
+
+  if (
+    !data.telephoneNumber ||
+    typeof data.telephoneNumber !== "string" ||
+    data.telephoneNumber.trim().length === 0
+  ) {
+    errors.push("Telephone number is required");
+  }
+
+  if (data.company && typeof data.company !== "string") {
+    errors.push("Company must be a string");
   }
 
   if (
@@ -63,12 +77,21 @@ const validateContactForm = (
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { firstName, lastName, email, subject, message } =
-      body as ContactFormData;
+    const {
+      firstName,
+      lastName,
+      telephoneNumber,
+      company,
+      email,
+      subject,
+      message,
+    } = body as ContactFormData;
 
     const validation = validateContactForm({
       firstName,
       lastName,
+      telephoneNumber,
+      company,
       email,
       subject,
       message,
@@ -106,6 +129,8 @@ export async function POST(request: NextRequest) {
     const contactData = {
       firstName: firstName.trim(),
       lastName: lastName.trim(),
+      telephoneNumber: telephoneNumber.trim(),
+      company: company ? company.trim() : null,
       email: email.toLowerCase().trim(),
       subject: subject?.trim() || null,
       message: message.trim(),
@@ -128,6 +153,42 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    try {
+      const supportEmailHtml = await render(
+        ContactNotificationEmail({
+          customerFirstName: firstName,
+          customerLastName: lastName,
+          customerTelephoneNumber: telephoneNumber,
+          customerCompany: company,
+          customerEmail: email,
+          subject: `Contact from ${firstName} ${lastName}`,
+          message: message,
+          submittedAt: new Date().toLocaleString(),
+        }),
+      );
+      const result = await sendEmail({
+        to: "imevanc.dev@gmail.com",
+        subject: `[SUPPORT] New Contact: ${firstName} ${lastName}`,
+        html: supportEmailHtml,
+        from: "onboarding@resend.dev",
+      });
+
+      if (result.success) {
+        console.log({
+          success: true,
+          message: "Your message has been sent to our support team",
+        });
+      } else {
+        console.error("Failed to send notification");
+      }
+    } catch (error) {
+      console.error("Contact form error:", error);
+      console.log({
+        success: false,
+        error: "Failed to submit contact form",
+      });
+    }
+
     return NextResponse.json(
       {
         success: true,
@@ -136,6 +197,8 @@ export async function POST(request: NextRequest) {
           id: newContact.id,
           firstName: newContact.firstName,
           lastName: newContact.lastName,
+          telephoneNumber: newContact.telephoneNumber,
+          company: newContact?.company,
           email: newContact.email,
           subject: newContact.subject,
           message: newContact.message,
