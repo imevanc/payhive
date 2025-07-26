@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/imevanc/payhive/compare/v1.7.3...v1.8.0) (2025-07-26)
+
+
+### Features
+
+* create submitContactForm endpoint ([#79](https://github.com/imevanc/payhive/issues/79)) ([11c57d0](https://github.com/imevanc/payhive/commit/11c57d01a3ac2ee2885b582ed0b51cec64dc2c1b))
+
 ## [1.7.3](https://github.com/imevanc/payhive/compare/v1.7.2...v1.7.3) (2025-07-25)
 
 
