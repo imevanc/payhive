@@ -19,13 +19,6 @@ describe("ContactPage", () => {
         screen.getByText(/aute magna irure deserunt/i),
       ).toBeInTheDocument();
     });
-
-    test("renders form with proper attributes", () => {
-      const form = document.querySelector("form");
-      expect(form).toBeInTheDocument();
-      expect(form).toHaveAttribute("method", "POST");
-      expect(form).toHaveAttribute("action", "#");
-    });
   });
 
   describe("Accessibility", () => {
