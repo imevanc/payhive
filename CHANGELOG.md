@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/imevanc/payhive/compare/v1.8.0...v1.9.0) (2025-07-27)
+
+
+### Features
+
+* link resend with contact ([#81](https://github.com/imevanc/payhive/issues/81)) ([1ce53a5](https://github.com/imevanc/payhive/commit/1ce53a5ba9b4b05ef27d8ecccdf8780fb163e3cd))
+
 # [1.8.0](https://github.com/imevanc/payhive/compare/v1.7.3...v1.8.0) (2025-07-26)
 
 
