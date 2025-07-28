@@ -44,7 +44,7 @@ export default function ServicesPage() {
           </h1>
           <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
             Go beyond bookkeeping. Empower your business with actionable
-            insights, secure tools, and expert advice—everything a sole trader
+            insights, secure tools, and expert advice - everything a sole trader
             needs to thrive.
           </p>
         </div>
