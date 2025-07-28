@@ -1,4 +1,3 @@
-"use client";
 import {
   BriefcaseIcon,
   ChartBarIcon,
@@ -6,7 +5,6 @@ import {
   PresentationChartLineIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import React from "react";
 
 export default function ServicesPage() {
   const services = [
@@ -68,7 +66,7 @@ export default function ServicesPage() {
 
         <div className="text-center">
           <Link
-            href="/signup"
+            href="/sign-up"
             className="inline-block bg-green-700 hover:bg-green-800 text-white px-8 py-4 rounded-lg font-semibold transition-colors"
           >
             Start Free Trial

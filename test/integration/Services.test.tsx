@@ -45,6 +45,6 @@ describe("ServicesPage", () => {
     render(<ServicesPage />);
     const cta = screen.getByRole("link", { name: /Start Free Trial/i });
     expect(cta).toBeInTheDocument();
-    expect(cta).toHaveAttribute("href", "/signup");
+    expect(cta).toHaveAttribute("href", "/sign-up");
   });
 });
