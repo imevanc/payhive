@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/imevanc/payhive/compare/v1.9.0...v1.9.1) (2025-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update react monorepo to v19.1.1 ([#83](https://github.com/imevanc/payhive/issues/83)) ([dca4bf8](https://github.com/imevanc/payhive/commit/dca4bf8acdffa5012f53472dd2f987bd258e0cab))
+
 # [1.9.0](https://github.com/imevanc/payhive/compare/v1.8.0...v1.9.0) (2025-07-27)
 
 
