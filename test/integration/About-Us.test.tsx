@@ -2,8 +2,11 @@ import { render, screen } from "@testing-library/react";
 import AboutUsPage from "@/app/about-us/page";
 
 describe("AboutUsPage", () => {
-  test("renders the main heading and subheading", () => {
+  beforeEach(() => {
     render(<AboutUsPage />);
+  });
+
+  test("renders the main heading and subheading", () => {
     expect(
       screen.getByRole("heading", { name: /Who We Are/i }),
     ).toBeInTheDocument();
@@ -11,7 +14,6 @@ describe("AboutUsPage", () => {
   });
 
   test("renders intro paragraph", () => {
-    render(<AboutUsPage />);
     expect(
       screen.getByText(
         /PayHive was founded to help UK sole traders navigate the financial maze/i,
@@ -20,7 +22,6 @@ describe("AboutUsPage", () => {
   });
 
   test("renders all highlight cards", () => {
-    render(<AboutUsPage />);
     const cardTitles = [
       /Community-Driven/i,
       /Built in the UK/i,
@@ -33,7 +34,6 @@ describe("AboutUsPage", () => {
   });
 
   test("renders highlight descriptions", () => {
-    render(<AboutUsPage />);
     expect(screen.getByText(/empowering UK sole traders/i)).toBeInTheDocument();
     expect(
       screen.getByText(/Headquartered in the heart of Manchester/i),
@@ -42,7 +42,6 @@ describe("AboutUsPage", () => {
   });
 
   test("renders Contact Us link with correct href", () => {
-    render(<AboutUsPage />);
     const contactLink = screen.getByRole("link", { name: /Contact Us/i });
     expect(contactLink).toBeInTheDocument();
     expect(contactLink).toHaveAttribute("href", "/contact");

@@ -38,7 +38,8 @@ export default function AboutUsPage() {
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             PayHive was founded to help UK sole traders navigate the financial
             maze with simplicity, compliance, and confidence. We believe your
-            time should be spent building your business - not buried in paperwork.
+            time should be spent building your business - not buried in
+            paperwork.
           </p>
         </div>
 
