@@ -21,9 +21,10 @@ export default function SignUpPage() {
             </span>
           </Link>
         </div>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-center text-gray-800 mb-6">
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-center text-gray-800 mb-6">
           Create your account
         </h2>
+
         <div>
           <div className="flex space-x-4 mb-4">
             <div className="flex-1">

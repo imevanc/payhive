@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import { H2Icon } from "@heroicons/react/24/outline";
 
 export default function SignInPage() {
   const [email, setEmail] = useState<string>("");
@@ -18,9 +19,10 @@ export default function SignInPage() {
             </span>
           </Link>
         </div>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-center text-gray-800 mb-6">
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-center text-gray-800 mb-6">
           Sign in to your account
         </h2>
+
         <div>
           <div className="mb-4">
             <label
