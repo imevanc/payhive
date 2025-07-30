@@ -2,8 +2,11 @@ import { render, screen } from "@testing-library/react";
 import ServicesPage from "@/app/services/page";
 
 describe("ServicesPage", () => {
-  test("renders main heading and subheading", () => {
+  beforeEach(() => {
     render(<ServicesPage />);
+  });
+
+  test("renders main heading and subheading", () => {
     expect(
       screen.getByRole("heading", { name: /Professional Services/i }),
     ).toBeInTheDocument();
@@ -12,7 +15,6 @@ describe("ServicesPage", () => {
   });
 
   test("renders all service cards", () => {
-    render(<ServicesPage />);
     const serviceTitles = [
       /Business Analytics/i,
       /Real-time Metrics/i,
@@ -26,7 +28,6 @@ describe("ServicesPage", () => {
   });
 
   test("renders correct service descriptions", () => {
-    render(<ServicesPage />);
     expect(
       screen.getByText(/performance reports, trend forecasting/i),
     ).toBeInTheDocument();
@@ -42,9 +43,8 @@ describe("ServicesPage", () => {
   });
 
   test("renders call-to-action button linking to signup", () => {
-    render(<ServicesPage />);
     const cta = screen.getByRole("link", { name: /Start Free Trial/i });
     expect(cta).toBeInTheDocument();
-    expect(cta).toHaveAttribute("href", "/signup");
+    expect(cta).toHaveAttribute("href", "/sign-up");
   });
 });
