@@ -1,3 +1,42 @@
+## [1.9.2](https://github.com/imevanc/payhive/compare/v1.9.1...v1.9.2) (2025-07-30)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.2.7 ([#89](https://github.com/imevanc/payhive/issues/89)) ([8177580](https://github.com/imevanc/payhive/commit/8177580161292f4c97c742fd76b6a43a8832dca0))
+* **deps:** update dependency @react-email/components to v0.3.3 ([#88](https://github.com/imevanc/payhive/issues/88)) ([30504bc](https://github.com/imevanc/payhive/commit/30504bc787cf71ea5d5278a5bd77397a6a613199))
+* **deps:** update dependency next to v15.4.5 ([#87](https://github.com/imevanc/payhive/issues/87)) ([f82b751](https://github.com/imevanc/payhive/commit/f82b751864bb86bafd3526d1f430c8021f24e76a))
+* **deps:** update prisma monorepo to v6.13.0 ([#85](https://github.com/imevanc/payhive/issues/85)) ([3bcc394](https://github.com/imevanc/payhive/commit/3bcc3940e3fd0619ba6add4832c3a0d45fd704f8))
+
+## [1.9.1](https://github.com/imevanc/payhive/compare/v1.9.0...v1.9.1) (2025-07-28)
+
+
+### Bug Fixes
+
+* **deps:** update react monorepo to v19.1.1 ([#83](https://github.com/imevanc/payhive/issues/83)) ([dca4bf8](https://github.com/imevanc/payhive/commit/dca4bf8acdffa5012f53472dd2f987bd258e0cab))
+
+# [1.9.0](https://github.com/imevanc/payhive/compare/v1.8.0...v1.9.0) (2025-07-27)
+
+
+### Features
+
+* link resend with contact ([#81](https://github.com/imevanc/payhive/issues/81)) ([1ce53a5](https://github.com/imevanc/payhive/commit/1ce53a5ba9b4b05ef27d8ecccdf8780fb163e3cd))
+
+# [1.8.0](https://github.com/imevanc/payhive/compare/v1.7.3...v1.8.0) (2025-07-26)
+
+
+### Features
+
+* create submitContactForm endpoint ([#79](https://github.com/imevanc/payhive/issues/79)) ([11c57d0](https://github.com/imevanc/payhive/commit/11c57d01a3ac2ee2885b582ed0b51cec64dc2c1b))
+
+## [1.7.3](https://github.com/imevanc/payhive/compare/v1.7.2...v1.7.3) (2025-07-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @headlessui/react to v2.2.6 ([#76](https://github.com/imevanc/payhive/issues/76)) ([961556a](https://github.com/imevanc/payhive/commit/961556a51026303d9dcfddbcd54f479a91bfd70d))
+* **deps:** update dependency next to v15.4.4 ([#75](https://github.com/imevanc/payhive/issues/75)) ([4bf093b](https://github.com/imevanc/payhive/commit/4bf093b2b267e097443711c39a09fdfcc00b00a2))
+
 ## [1.7.2](https://github.com/imevanc/payhive/compare/v1.7.1...v1.7.2) (2025-07-21)
 
 
