@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/imevanc/payhive/compare/v1.9.2...v1.10.0) (2025-07-30)
+
+
+### Features
+
+* create AboutUsPage component ([#78](https://github.com/imevanc/payhive/issues/78)) ([9aa4e88](https://github.com/imevanc/payhive/commit/9aa4e88d68ed8c78a7ecb8c16a266f29d498edc8))
+
 ## [1.9.2](https://github.com/imevanc/payhive/compare/v1.9.1...v1.9.2) (2025-07-30)
 
 
