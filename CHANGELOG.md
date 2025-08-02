@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/imevanc/payhive/compare/v1.10.0...v1.10.1) (2025-08-02)
+
+
+### Bug Fixes
+
+* create database migration for privacy accepted ([#93](https://github.com/imevanc/payhive/issues/93)) ([1d04392](https://github.com/imevanc/payhive/commit/1d0439271550f9840becf0d1526f661f3c23c0c7))
+
 # [1.10.0](https://github.com/imevanc/payhive/compare/v1.9.2...v1.10.0) (2025-07-30)
 
 
