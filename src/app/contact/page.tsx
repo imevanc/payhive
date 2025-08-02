@@ -17,6 +17,7 @@ export default function ContactPage() {
       company: formData.get("company") as string,
       email: formData.get("email") as string,
       subject: formData.get("subject") as string,
+      privacyAccepted: formData.get("agree-to-policies") === "on",
       message: formData.get("message") as string,
     };
 
@@ -64,7 +65,9 @@ export default function ContactPage() {
           Contact sales
         </h2>
         <p className="mt-2 text-lg/8 text-gray-600">
-          Aute magna irure deserunt veniam aliqua magna enim voluptate.
+          Have questions about our products or need help with your account? Our
+          sales team is here to assist you. Fill out the form below, and we'll
+          get back to you as soon as possible.
         </p>
       </div>
       <form onSubmit={handleSubmit} className="mx-auto mt-16 max-w-xl sm:mt-20">

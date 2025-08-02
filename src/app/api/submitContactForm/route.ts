@@ -56,8 +56,8 @@ const validateContactForm = (
     errors.push("Message is required");
   }
 
-  if (data.name && data.name.length > 100) {
-    errors.push("Name must be less than 100 characters");
+  if (data.privacyAccepted !== true) {
+    errors.push("You must accept the privacy policy");
   }
 
   if (data.subject && data.subject.length > 200) {
