@@ -8,12 +8,6 @@ datasource db {
   url      = env("POSTGRES_URL_NON_POOLING")
 }
 
-/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model notes {
-  id    BigInt @id @default(autoincrement())
-  title String
-}
-
 model Account {
   id                 String    @id @default(cuid())
   userId             String
@@ -43,32 +37,33 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  firstName     String?
-  lastName      String?
   email         String?   @unique
-  password      String?
   emailVerified DateTime?
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  password      String?
+  firstName     String?
+  lastName      String?
   accounts      Account[]
-  sessions      Session[]
   contacts      Contact[]
+  sessions      Session[]
 }
 
 model Contact {
   id              String   @id @default(cuid())
   firstName       String
   lastName        String
-  telephoneNumber String   @default("")
-  company         String?  @default("")
   email           String
   subject         String?
   message         String
   userId          String?
-  emailSent       Boolean  @default(false)
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+  company         String?  @default("")
+  emailSent       Boolean  @default(false)
+  telephoneNumber String?  @default("")
+  privacyAccepted Boolean  @default(false)
   user            User?    @relation(fields: [userId], references: [id])
 
   @@index([email])

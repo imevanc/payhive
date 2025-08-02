@@ -14,11 +14,8 @@ describe("ContactPage", () => {
       ).toBeInTheDocument();
     });
 
-    test("renders description text", () => {
-      expect(
-        screen.getByText(/aute magna irure deserunt/i),
-      ).toBeInTheDocument();
-    });
+    test("renders description text", () =>
+      expect(screen.getByTestId(/contact-description/i)).toBeInTheDocument());
   });
 
   describe("Accessibility", () => {
