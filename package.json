@@ -29,7 +29,7 @@
     "postgres": "^3.4.7",
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "resend": "^4.7.0"
+    "resend": "^5.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
