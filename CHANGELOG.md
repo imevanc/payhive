@@ -1,3 +1,12 @@
+## [1.10.2](https://github.com/imevanc/payhive/compare/v1.10.1...v1.10.2) (2025-08-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @react-email/components to ^0.5.0 ([#90](https://github.com/imevanc/payhive/issues/90)) ([033c8df](https://github.com/imevanc/payhive/commit/033c8df230c97b13042d81e9213cb5be095bc36a))
+* **deps:** update dependency next to v15.4.6 ([#95](https://github.com/imevanc/payhive/issues/95)) ([ba25ca6](https://github.com/imevanc/payhive/commit/ba25ca6aa8031943afddef22bce8cd29e33d8eb2))
+* **deps:** update dependency resend to v4.8.0 ([#94](https://github.com/imevanc/payhive/issues/94)) ([5312c85](https://github.com/imevanc/payhive/commit/5312c85652eb66e7a25da3331640abc44d4e6431))
+
 ## [1.10.1](https://github.com/imevanc/payhive/compare/v1.10.0...v1.10.1) (2025-08-02)
 
 
