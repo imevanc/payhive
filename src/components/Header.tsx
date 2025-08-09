@@ -100,7 +100,7 @@ export const Header: FC<{
 
                   <Link
                     href="/sign-up"
-                    className="cursor-pointer hover:bg-gray-50 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+                    className="cursor-pointer hover:bg-green-800 bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
                   >
                     Start Free Trial
                   </Link>
