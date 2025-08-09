@@ -1,11 +1,11 @@
 "use client";
-import {FC, useState} from "react";
+import { FC, useState } from "react";
 import Link from "next/link";
-import {signOut, useSession} from "next-auth/react";
-import {Dialog, DialogPanel} from "@headlessui/react";
-import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
-import {toKebabCase} from "@/utils";
-import {useSelectedPath} from "@/hooks";
+import { signOut, useSession } from "next-auth/react";
+import { Dialog, DialogPanel } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { toKebabCase } from "@/utils";
+import { useSelectedPath } from "@/hooks";
 
 export const Header: FC<{
   tabs: Array<{ name: string; href: string }>;
@@ -30,7 +30,7 @@ export const Header: FC<{
       toKebabCase(tab.name) as keyof typeof selectedPath
     ]
       ? "transparent"
-      : mobileLinkHoveredTab === tab.name && "f9fafb",
+      : (mobileLinkHoveredTab === tab.name && "f9fafb").toString(),
     color: selectedPath[toKebabCase(tab.name) as keyof typeof selectedPath]
       ? "#15803d"
       : mobileLinkHoveredTab === tab.name

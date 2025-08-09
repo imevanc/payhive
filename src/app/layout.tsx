@@ -1,12 +1,11 @@
-import {ReactNode} from "react";
-import type {Metadata} from "next";
-import {getServerSession} from "next-auth";
-import {Footer, Header} from "@/components";
-import {TABS} from "@/constants";
-import {AuthSessionProvider} from "@/providers";
-import {authConfig} from "@/auth/config";
+import { ReactNode } from "react";
+import type { Metadata } from "next";
+import { getServerSession } from "next-auth";
+import { AuthenticatedHeader, AuthWrapper, Footer, Header } from "@/components";
+import { TABS } from "@/constants";
+import { AuthSessionProvider } from "@/providers";
+import { authConfig } from "@/auth/config";
 import "./globals.css";
-import {AuthenticatedHeader} from "@/components/AuthenticatedHeader";
 
 export const metadata: Metadata = {
   title: "PayHive",
@@ -24,9 +23,12 @@ export default async function RootLayout({
       <body>
         <AuthSessionProvider session={session}>
           <div className="flex flex-col h-full w-full">
-            <Header tabs={TABS} dataTestId="header" />
-            <AuthenticatedHeader tabs={TABS} dataTestId="header" />
-            {children}
+            {session ? (
+              <AuthenticatedHeader dataTestId="authenticated-header" />
+            ) : (
+              <Header tabs={TABS} dataTestId="header" />
+            )}
+            <AuthWrapper>{children}</AuthWrapper>
             <Footer isUserSubscribed={false} dataTestId="payhive" />
           </div>
         </AuthSessionProvider>
