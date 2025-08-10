@@ -1,10 +1,4 @@
-import NextAuth, {
-  Account,
-  AuthOptions,
-  Profile,
-  Session,
-  User,
-} from "next-auth";
+import NextAuth, { Account, AuthOptions, Session, User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { compare } from "bcrypt";
@@ -15,6 +9,7 @@ import { JWT } from "next-auth/jwt";
 const prisma = new PrismaClient();
 
 export const authConfig: AuthOptions = {
+  debug: true, // Enable NextAuth debug mode
   pages: {
     signIn: "/sign-in",
   },
@@ -27,22 +22,36 @@ export const authConfig: AuthOptions = {
       async authorize(
         credentials: Record<"email" | "password", string> | undefined,
       ) {
-        console.log("Authorizing user with credentials:", credentials);
-        if (!credentials?.email || !credentials?.password) return null;
+        console.log(
+          "🔐 AUTHORIZE: Starting authorization with credentials:",
+          credentials,
+        );
+        if (!credentials?.email || !credentials?.password) {
+          console.log("❌ AUTHORIZE: Missing credentials");
+          return null;
+        }
 
         const user = await getUser(credentials.email);
-        console.log("User fetched from database:", user);
-        if (!user) return null;
+        console.log("👤 AUTHORIZE: User fetched from database:", user);
+        if (!user) {
+          console.log("❌ AUTHORIZE: User not found");
+          return null;
+        }
 
         const passwordsMatch = await compare(
           credentials.password,
           user.password!,
         );
-        console.log("Passwords match:", passwordsMatch);
+        console.log("🔑 AUTHORIZE: Passwords match:", passwordsMatch);
         if (passwordsMatch) {
           const { password: _, ...userWithoutPassword } = user;
+          console.log(
+            "✅ AUTHORIZE: Success! Returning user:",
+            userWithoutPassword,
+          );
           return userWithoutPassword;
         }
+        console.log("❌ AUTHORIZE: Password mismatch");
         return null;
       },
     }),
@@ -50,9 +59,14 @@ export const authConfig: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
-    maxAge: 60,
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
+  },
+  jwt: {
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   callbacks: {
+    // @ts-ignore
     async jwt({
       token,
       user,
@@ -64,61 +78,98 @@ export const authConfig: AuthOptions = {
       account?: Account | null;
       trigger?: string;
     }) {
-      console.log("JWT callback triggered:", {
-        trigger,
-        hasUser: !!user,
-        hasAccount: !!account,
+      console.log("🎫 JWT CALLBACK START ===========================");
+      console.log("Trigger:", trigger);
+      console.log("Has User:", !!user);
+      console.log("Has Account:", !!account);
+      console.log("Current Time:", Math.floor(Date.now() / 1000));
+      console.log("Token Exp:", token.exp);
+      console.log("Token Contents:", {
+        userId: token.userId,
+        email: token.email,
+        iat: token.iat,
+        exp: token.exp,
+        jti: token.jti,
       });
 
+      // Check if this is a token refresh without user
+      if (!user && !account) {
+        if (token.userId) {
+          console.log("🔄 JWT: Token refresh - keeping existing data");
+          console.log("🔄 JWT: Existing userId:", token.userId);
+          return token;
+        } else {
+          console.log("❌ JWT: Token refresh but NO userId found in token!");
+          console.log("❌ JWT: This token is invalid - clearing it");
+          // Return null to force re-authentication
+          return null;
+        }
+      }
+
+      // New sign in
       if (user) {
-        console.log("User signing in:", user);
+        console.log("🆕 JWT: New sign in - setting user data");
+        console.log("User ID:", user.id);
+        console.log("User Email:", user.email);
         token.userId = user.id;
         token.email = user.email;
       }
 
       if (account) {
-        console.log("Account details:", account);
+        console.log("🔗 JWT: Account data available");
         token.accessToken = account.access_token;
         token.provider = account.provider;
       }
 
+      console.log("🎫 JWT CALLBACK END - Final Token:", {
+        userId: token.userId,
+        email: token.email,
+        exp: token.exp,
+      });
+      console.log("=====================================");
       return token;
     },
+
     async session({ session, token }: { session: Session; token: JWT }) {
-      console.log("Session callback - token:", token);
+      console.log("🏠 SESSION CALLBACK START ===================");
+      console.log("Token:", {
+        userId: token.userId,
+        email: token.email,
+        exp: token.exp,
+        currentTime: Math.floor(Date.now() / 1000),
+      });
+
+      // @ts-ignore
+      const isExpired = token.exp && token.exp < Math.floor(Date.now() / 1000);
+      console.log("Token expired?", isExpired);
 
       if (token && session && session.user) {
-        // @ts-ignore
-        session.user.id = token.userId as string;
-        session.user.email = token.email as string;
+        if (token.userId) {
+          // @ts-ignore
+          session.user.id = token.userId as string;
+          session.user.email = token.email as string;
+          console.log("✅ SESSION: User data set successfully");
+        } else {
+          console.log("❌ SESSION: No userId in token!");
+        }
       }
 
-      console.log("Final session:", session);
+      console.log("🏠 SESSION CALLBACK END - Final Session:", session);
+      console.log("=========================================");
       return session;
     },
   },
+
   events: {
     async signOut({ token, session }: { token: JWT; session: Session }) {
-      console.log("SignOut event triggered");
-      console.log("Token being cleared:", token);
-      console.log("Session being cleared:", session);
+      console.log("🚪 SIGN OUT EVENT");
     },
+
     // @ts-ignore
-    async signIn({
-      user,
-      account,
-      profile,
-    }: {
-      user: User;
-      account: Account;
-      profile: Profile;
-    }) {
-      console.log("SignIn event triggered");
-      console.log("User:", user);
-      console.log("Account:", account.provider);
-    },
-    async session({ session, token }: { session: Session; token: JWT }) {
-      console.log("Session event - session retrieved");
+    async signIn({ user, account }: { user: User; account: Account }) {
+      console.log("🎉 SIGN IN EVENT - User:", user.email);
+      console.log("🎉 SIGN IN EVENT - Provider:", account.provider);
+      return true;
     },
   },
 };

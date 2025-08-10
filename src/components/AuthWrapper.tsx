@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { AuthWrapperProps } from "@/types";
 import { PROTECTED_ROUTES } from "@/constants";
+import Loading from "@/components/Loading";
 
 const isProtectedRoute = (pathname: string): boolean =>
   PROTECTED_ROUTES.some(
@@ -19,6 +20,16 @@ export const AuthWrapper = ({
   const router = useRouter();
   const pathName = usePathname();
   const { callbackUrl } = useParams();
+
+  useEffect(() => {
+    console.log("=== AuthWrapper Debug ===");
+    console.log("Status:", status);
+    console.log("Session:", session);
+    console.log("PathName:", pathName);
+    console.log("Document cookies:", document.cookie);
+    console.log("Is protected route:", isProtectedRoute(pathName));
+    console.log("========================");
+  }, [session, status, pathName]);
 
   useEffect(() => {
     if (status === "loading") return;
@@ -38,18 +49,18 @@ export const AuthWrapper = ({
   }, [session, status, router, pathName, requireAuth, redirectTo, callbackUrl]);
 
   if (status === "loading") {
-    return <div className="pt-44 text-9xl text-green-600">LOADING</div>;
+    return <Loading />;
   }
 
   if (status === "unauthenticated" && isProtectedRoute(pathName)) {
-    return <div className="pt-44 text-9xl text-green-600">LOADING</div>;
+    return <Loading />;
   }
 
   if (
     status === "authenticated" &&
     (pathName === "/sign-in" || pathName === "/sign-up")
   ) {
-    return <div className="pt-44 text-9xl text-green-600">LOADING</div>;
+    return <Loading />;
   }
 
   return <>{children}</>;
