@@ -1,7 +1,7 @@
 "use client";
 import { FC, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -9,6 +9,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { NavigationTab } from "@/types";
+import { NAVIGATION_TABS } from "@/constants";
 
 export const AuthenticatedHeader: FC<{
   dataTestId: string;
@@ -18,137 +19,7 @@ export const AuthenticatedHeader: FC<{
   const [mobileModalOpen, setMobileModalOpen] = useState<boolean>(false);
   const [mobileModalContent, setMobileModalContent] =
     useState<NavigationTab | null>(null);
-  const { data: session } = useSession();
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  // Navigation structure
-  const navigationTabs: NavigationTab[] = [
-    {
-      name: "Customers",
-      items: [
-        {
-          name: "Customer List",
-          href: "/customers",
-          description: "View all customers",
-        },
-        {
-          name: "Add Customer",
-          href: "/customers/add",
-          description: "Create new customer",
-        },
-        {
-          name: "Customer Groups",
-          href: "/customers/groups",
-          description: "Manage customer segments",
-        },
-        {
-          name: "Customer Reports",
-          href: "/customers/reports",
-          description: "Customer analytics",
-        },
-      ],
-    },
-    {
-      name: "Banking",
-      items: [
-        {
-          name: "Accounts",
-          href: "/banking/accounts",
-          description: "Bank account management",
-        },
-        {
-          name: "Transactions",
-          href: "/banking/transactions",
-          description: "Transaction history",
-        },
-        {
-          name: "Reconciliation",
-          href: "/banking/reconciliation",
-          description: "Bank reconciliation",
-        },
-        {
-          name: "Transfers",
-          href: "/banking/transfers",
-          description: "Money transfers",
-        },
-      ],
-    },
-    {
-      name: "Accounting",
-      items: [
-        {
-          name: "Chart of Accounts",
-          href: "/accounting/chart",
-          description: "Account structure",
-        },
-        {
-          name: "Journal Entries",
-          href: "/accounting/journal",
-          description: "Manual entries",
-        },
-        {
-          name: "General Ledger",
-          href: "/accounting/ledger",
-          description: "Account balances",
-        },
-        {
-          name: "Trial Balance",
-          href: "/accounting/trial-balance",
-          description: "Balance verification",
-        },
-      ],
-    },
-    {
-      name: "Tools",
-      items: [
-        {
-          name: "Bulk Operations",
-          href: "/tools/bulk",
-          description: "Batch processing",
-        },
-        {
-          name: "Import/Export",
-          href: "/tools/import-export",
-          description: "Data management",
-        },
-        {
-          name: "Integrations",
-          href: "/tools/integrations",
-          description: "Third-party apps",
-        },
-        {
-          name: "Settings",
-          href: "/tools/settings",
-          description: "System configuration",
-        },
-      ],
-    },
-    {
-      name: "Reports",
-      items: [
-        {
-          name: "Financial Reports",
-          href: "/reports/financial",
-          description: "P&L, Balance Sheet",
-        },
-        {
-          name: "Tax Reports",
-          href: "/reports/tax",
-          description: "Tax compliance",
-        },
-        {
-          name: "Custom Reports",
-          href: "/reports/custom",
-          description: "Build your own",
-        },
-        {
-          name: "Scheduled Reports",
-          href: "/reports/scheduled",
-          description: "Automated reporting",
-        },
-      ],
-    },
-  ];
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -208,7 +79,7 @@ export const AuthenticatedHeader: FC<{
                 className="hidden lg:flex lg:gap-x-1 lg:items-center"
                 ref={dropdownRef}
               >
-                {navigationTabs.map((tab) => (
+                {NAVIGATION_TABS.map((tab) => (
                   <div key={tab.name} className="relative font-semibold">
                     <button
                       onClick={() =>
@@ -267,7 +138,6 @@ export const AuthenticatedHeader: FC<{
         </div>
       </header>
 
-      {/* Mobile Menu */}
       <Dialog
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
@@ -293,7 +163,7 @@ export const AuthenticatedHeader: FC<{
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-200">
               <div className="space-y-2 py-6">
-                {navigationTabs.map((tab) => (
+                {NAVIGATION_TABS.map((tab) => (
                   <button
                     key={tab.name}
                     onClick={() => handleMobileTabClick(tab)}
@@ -324,7 +194,6 @@ export const AuthenticatedHeader: FC<{
         </DialogPanel>
       </Dialog>
 
-      {/* Mobile Modal for Dropdown Content */}
       <Dialog
         open={mobileModalOpen}
         onClose={handleMobileModalClose}
