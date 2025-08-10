@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/imevanc/payhive/compare/v1.11.0...v1.11.1) (2025-08-10)
+
+
+### Bug Fixes
+
+* resove the sonarqube issues ([#100](https://github.com/imevanc/payhive/issues/100)) ([8eb7c0e](https://github.com/imevanc/payhive/commit/8eb7c0e4291a160da1ec99e3f9b150c42ad875ef))
+
 # [1.11.0](https://github.com/imevanc/payhive/compare/v1.10.2...v1.11.0) (2025-08-10)
 
 
