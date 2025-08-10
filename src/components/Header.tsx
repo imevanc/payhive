@@ -21,22 +21,20 @@ export const Header: FC<{
   const selectedPathClassName = `text-green-700 border-b-2 border-green-700 font-semibold`;
   const nonSelectedPathClassName =
     "text-gray-600 hover:text-green-700 hover:border-b-2 hover:border-green-300 font-semibold transition-colors";
-  const selectedPathMobileClassName = "bg-green-100 text-green-900";
+  const selectedPathMobileClassName = "text-green-700";
   const nonSelectedPathMobileClassName =
-    "text-gray-900 hover:bg-green-50 hover:text-green-700 transition-colors";
+    "text-gray-900 hover:bg-gray-50 hover:text-green-600 transition-colors";
 
   const getMobileTabStyle = (tab: Record<string, string>) => ({
     backgroundColor: selectedPath[
       toKebabCase(tab.name) as keyof typeof selectedPath
     ]
-      ? "#dcfce7"
-      : mobileLinkHoveredTab === tab.name
-        ? "#f0fdf4"
-        : "transparent",
+      ? "transparent"
+      : (mobileLinkHoveredTab === tab.name && "f9fafb").toString(),
     color: selectedPath[toKebabCase(tab.name) as keyof typeof selectedPath]
-      ? "#14532d"
+      ? "#15803d"
       : mobileLinkHoveredTab === tab.name
-        ? "#15803d"
+        ? "#16a34a"
         : "#111827",
   });
 
@@ -102,7 +100,7 @@ export const Header: FC<{
 
                   <Link
                     href="/sign-up"
-                    className="cursor-pointer bg-green-700 hover:bg-green-800 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+                    className="cursor-pointer hover:bg-green-800 bg-green-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors"
                   >
                     Start Free Trial
                   </Link>

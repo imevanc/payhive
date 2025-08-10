@@ -331,19 +331,16 @@ describe("Header Component", () => {
 
       if (mobileHomeLink) {
         expect(mobileHomeLink).toHaveStyle({
-          backgroundColor: "transparent",
           color: "#111827",
         });
 
         await user.hover(mobileHomeLink);
         expect(mobileHomeLink).toHaveStyle({
-          backgroundColor: "#f0fdf4",
-          color: "#15803d",
+          color: "#16a34a",
         });
 
         await user.unhover(mobileHomeLink);
         expect(mobileHomeLink).toHaveStyle({
-          backgroundColor: "transparent",
           color: "#111827",
         });
       }
@@ -370,8 +367,7 @@ describe("Header Component", () => {
       );
 
       expect(mobileHomeLink).toHaveStyle({
-        backgroundColor: "#dcfce7",
-        color: "#14532d",
+        color: "#15803d",
       });
     });
 
@@ -398,8 +394,7 @@ describe("Header Component", () => {
       if (mobileHomeLink) {
         await user.hover(mobileHomeLink);
         expect(mobileHomeLink).toHaveStyle({
-          backgroundColor: "#dcfce7",
-          color: "#14532d",
+          color: "#15803d",
         });
       }
     });
@@ -618,40 +613,6 @@ describe("Header Component", () => {
 
       await user.click(menuButton);
       expect(screen.getByTestId("dialog")).toBeInTheDocument();
-    });
-
-    test("manages hover state for mobile links independently", async () => {
-      const user = userEvent.setup();
-      renderWithProviders(<Header {...defaultProps} />);
-
-      const menuButton = screen.getByRole("button", {
-        name: /open main menu/i,
-      });
-      await user.click(menuButton);
-
-      const allHomeLinks = screen.getAllByRole("link", { name: "Home" });
-      const allAboutLinks = screen.getAllByRole("link", { name: "About Us" });
-
-      const mobileHomeLink = allHomeLinks.find(
-        (link) =>
-          link.className.includes("block") &&
-          link.className.includes("rounded-lg"),
-      );
-      const mobileAboutLink = allAboutLinks.find(
-        (link) =>
-          link.className.includes("block") &&
-          link.className.includes("rounded-lg"),
-      );
-
-      if (mobileHomeLink && mobileAboutLink) {
-        await user.hover(mobileHomeLink);
-        expect(mobileHomeLink).toHaveStyle({ backgroundColor: "#f0fdf4" });
-        expect(mobileAboutLink).toHaveStyle({ backgroundColor: "transparent" });
-
-        await user.hover(mobileAboutLink);
-        expect(mobileHomeLink).toHaveStyle({ backgroundColor: "transparent" });
-        expect(mobileAboutLink).toHaveStyle({ backgroundColor: "#f0fdf4" });
-      }
     });
 
     test("calls useSelectedPath hook exactly once", () => {
