@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/imevanc/payhive/compare/v1.10.2...v1.11.0) (2025-08-10)
+
+
+### Features
+
+* create authenticated header ([#99](https://github.com/imevanc/payhive/issues/99)) ([0dda152](https://github.com/imevanc/payhive/commit/0dda152fc18e9f274ce6e453eacae1b5391d179e))
+
 ## [1.10.2](https://github.com/imevanc/payhive/compare/v1.10.1...v1.10.2) (2025-08-09)
 
 
