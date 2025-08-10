@@ -4,4 +4,4 @@ export const toKebabCase = (input: string): string =>
     .replace(/[_\s]+/g, "-")
     .toLowerCase()
     .replace(/--+/g, "-")
-    .replace(/^-|-$/g, "");
+    .replace(/(^-)|(-$)/g, "");
