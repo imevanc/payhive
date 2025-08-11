@@ -84,8 +84,8 @@ jobs:
           RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
         with:
           args: >
-            -Dsonar.projectKey=${{ github.event.repository.name }}
-            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+            -Dsonar.projectKey=imevanc_payhive
+            -Dsonar.organization=imevanc
             -Dsonar.sources=src
             -Dsonar.tests=src
             -Dsonar.test.inclusions=**/*.test.js,**/*.test.jsx,**/*.test.ts,**/*.test.tsx
