@@ -11,7 +11,7 @@
     "prettier": "prettier --check \"**/*.{ts,tsx}\"",
     "test:type": "tsc --noEmit --skipLibCheck",
     "test:unit": "jest",
-    "test:coverage": "jest --collectCoverage --",
+    "test:coverage": "jest --collectCoverage --coverageReporters=lcov",
     "test:unit:watch": "jest --watch",
     "prepare": "husky"
   },

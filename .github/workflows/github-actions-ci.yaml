@@ -54,6 +54,27 @@ jobs:
           POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
           RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
         run: npm run test:unit
+  sonar_coverage:
+    name: SonarQube Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Dependencies
+        env:
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
+        run: npm install
+      - uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
+        run: npm run test:coverage
 #  wait_for_vercel:
 #    name: Wait for vercel
 #    runs-on: ubuntu-latest
