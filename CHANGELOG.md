@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/imevanc/payhive/compare/v1.11.1...v1.12.0) (2025-08-11)
+
+
+### Features
+
+* integrate sonarqube test coverage ([#104](https://github.com/imevanc/payhive/issues/104)) ([6c8dcf9](https://github.com/imevanc/payhive/commit/6c8dcf9d4b36682ffbc2cdbe4a452996b42f7c1e))
+
 ## [1.11.1](https://github.com/imevanc/payhive/compare/v1.11.0...v1.11.1) (2025-08-10)
 
 
