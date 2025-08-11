@@ -85,7 +85,7 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=imevanc_payhive
-            -Dsonar.organization=imevanc
+            -Dsonar.organization=imevanc 
             -Dsonar.sources=src
             -Dsonar.tests=src
             -Dsonar.test.inclusions=**/*.test.js,**/*.test.jsx,**/*.test.ts,**/*.test.tsx
