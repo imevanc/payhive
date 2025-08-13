@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/imevanc/payhive/compare/v1.12.1...v1.12.2) (2025-08-13)
+
+
+### Bug Fixes
+
+* **deps:** update prisma monorepo to v6.14.0 ([#106](https://github.com/imevanc/payhive/issues/106)) ([088ba75](https://github.com/imevanc/payhive/commit/088ba7585839985bacf702a719a2a5df97e758d8))
+
 ## [1.12.1](https://github.com/imevanc/payhive/compare/v1.12.0...v1.12.1) (2025-08-11)
 
 
