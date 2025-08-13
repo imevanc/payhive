@@ -8,6 +8,44 @@ permissions:
   contents: read
 
 jobs:
+  sonar_coverage:
+    name: SonarQube Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Dependencies
+        env:
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
+        run: npm install
+      - name: Run the tests with coverage
+        env:
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: npm run test:coverage
+      - name: SonarCloud Analysis
+        uses: SonarSource/sonarqube-scan-action@master
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          POSTGRES_URL_NON_POOLING: ${{ secrets.POSTGRES_URL_NON_POOLING }}
+          RESEND_EMAIL_KEY: ${{ secrets.RESEND_EMAIL_KEY }}
+        with:
+          args: >
+            -Dsonar.projectKey=imevanc_payhive
+            -Dsonar.organization=imevanc 
+            -Dsonar.sources=src
+            -Dsonar.tests=src
+            -Dsonar.test.inclusions=**/*.test.js,**/*.test.jsx,**/*.test.ts,**/*.test.tsx
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.coverage.exclusions=**/*.test.*,**/*.spec.*,**/node_modules/**,**/coverage/**
   release:
     name: Release
     runs-on: ubuntu-latest
@@ -18,7 +56,7 @@ jobs:
       id-token: write # to enable use of OIDC for npm provenance
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: Setup Node.js

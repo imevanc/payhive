@@ -1,3 +1,26 @@
+## [1.12.2](https://github.com/imevanc/payhive/compare/v1.12.1...v1.12.2) (2025-08-13)
+
+
+### Bug Fixes
+
+* **deps:** update prisma monorepo to v6.14.0 ([#106](https://github.com/imevanc/payhive/issues/106)) ([088ba75](https://github.com/imevanc/payhive/commit/088ba7585839985bacf702a719a2a5df97e758d8))
+
+## [1.12.1](https://github.com/imevanc/payhive/compare/v1.12.0...v1.12.1) (2025-08-11)
+
+
+### Bug Fixes
+
+* update pipeline ([4bdbe58](https://github.com/imevanc/payhive/commit/4bdbe58c21fa65c0193803bee82dd884b79b8a06))
+* update pipeline ([e7b92b5](https://github.com/imevanc/payhive/commit/e7b92b5275b35e10777030ad9b2485eeeed211e7))
+* update pipeline ([d1dcc34](https://github.com/imevanc/payhive/commit/d1dcc34c2c1586f8df581cd47e0200ec45852b98))
+
+# [1.12.0](https://github.com/imevanc/payhive/compare/v1.11.1...v1.12.0) (2025-08-11)
+
+
+### Features
+
+* integrate sonarqube test coverage ([#104](https://github.com/imevanc/payhive/issues/104)) ([6c8dcf9](https://github.com/imevanc/payhive/commit/6c8dcf9d4b36682ffbc2cdbe4a452996b42f7c1e))
+
 ## [1.11.1](https://github.com/imevanc/payhive/compare/v1.11.0...v1.11.1) (2025-08-10)
 
 
