@@ -1,15 +1,35 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { register } from "@/auth/db";
+import { useForm } from "react-hook-form";
+import { register as registerUser } from "@/auth/db";
+
+type FormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  agreeToTerms: boolean;
+};
 
 export default function SignUpPage() {
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit = (data: FormData) => {
+    if (data.password !== data.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    if (!data.agreeToTerms) {
+      alert("You must agree to the terms");
+      return;
+    }
+    registerUser(data.email, data.password, data.firstName, data.lastName);
+  };
 
   return (
     <main className="flex items-center justify-center p-4 lg:py-14">
@@ -24,110 +44,129 @@ export default function SignUpPage() {
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-center text-gray-800 mb-6">
           Create your account
         </h2>
-        <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex space-x-4 mb-4">
             <div className="flex-1">
-              <label
-                htmlFor="firstName"
-                className="block text-sm lg:text-base font-medium text-gray-600 mb-2"
-              >
+              <label htmlFor="firstName" className="block text-sm font-medium text-gray-600 mb-2">
                 First name
               </label>
               <input
                 type="text"
                 id="firstName"
-                className="w-full p-3 lg:p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent text-base lg:text-lg"
+                {...register("firstName", {
+                  required: "First name is required",
+                  pattern: {
+                    value: /^[A-Za-z'-]+$/,
+                    message: "Only letters, apostrophes, and dashes allowed",
+                  },
+                })}
+                className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 ${
+                  errors.firstName
+                    ? "border-red-500 focus:ring-red-600"
+                    : "border-gray-300 focus:ring-green-600"
+                }`}
                 placeholder="First name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
               />
+              {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName.message}</p>}
             </div>
             <div className="flex-1">
-              <label
-                htmlFor="lastName"
-                className="block text-sm lg:text-base font-medium text-gray-600 mb-2"
-              >
+              <label htmlFor="lastName" className="block text-sm font-medium text-gray-600 mb-2">
                 Last name
               </label>
               <input
                 type="text"
                 id="lastName"
-                className="w-full p-3 lg:p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent text-base lg:text-lg"
+                {...register("lastName", {
+                  required: "Last name is required",
+                  pattern: {
+                    value: /^[A-Za-z'-]+$/,
+                    message: "Only letters, apostrophes, and dashes allowed",
+                  },
+                })}
+                className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 ${
+                  errors.lastName
+                    ? "border-red-500 focus:ring-red-600"
+                    : "border-gray-300 focus:ring-green-600"
+                }`}
                 placeholder="Last name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
               />
+              {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
             </div>
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm lg:text-base font-medium text-gray-600 mb-2"
-            >
+            <label htmlFor="email" className="block text-sm font-medium text-gray-600 mb-2">
               Email address
             </label>
             <input
               type="email"
               id="email"
-              className="w-full p-3 lg:p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent text-base lg:text-lg"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Please enter a valid email address",
+                },
+              })}
+              className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.email
+                  ? "border-red-500 focus:ring-red-600"
+                  : "border-gray-300 focus:ring-green-600"
+              }`}
               placeholder="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
             />
+            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-sm lg:text-base font-medium text-gray-600 mb-2"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-gray-600 mb-2">
               Password
             </label>
             <input
               type="password"
               id="password"
-              className="w-full p-3 lg:p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent text-base lg:text-lg"
+              {...register("password", {
+                required: "Password is required",
+                minLength: { value: 6, message: "Minimum length is 6 characters" },
+              })}
+              className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.password
+                  ? "border-red-500 focus:ring-red-600"
+                  : "border-gray-300 focus:ring-green-600"
+              }`}
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
             />
+            {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm lg:text-base font-medium text-gray-600 mb-2"
-            >
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-600 mb-2">
               Confirm password
             </label>
             <input
               type="password"
               id="confirmPassword"
-              className="w-full p-3 lg:p-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent text-base lg:text-lg"
+              {...register("confirmPassword", { required: "Please confirm your password" })}
+              className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.confirmPassword
+                  ? "border-red-500 focus:ring-red-600"
+                  : "border-gray-300 focus:ring-green-600"
+              }`}
               placeholder="Confirm password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
             />
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm">{errors.confirmPassword.message}</p>
+            )}
           </div>
 
           <div className="flex items-start mb-6">
             <input
               type="checkbox"
               id="agreeToTerms"
-              className="h-4 w-4 lg:h-5 lg:w-5 rounded border-gray-300 focus:ring-green-500 focus:ring-2 accent-green-600 mt-1"
-              checked={agreeToTerms}
-              onChange={() => setAgreeToTerms(!agreeToTerms)}
+              {...register("agreeToTerms")}
+              className="h-4 w-4 rounded border-gray-300 focus:ring-green-500 accent-green-600 mt-1"
             />
-            <label
-              htmlFor="agreeToTerms"
-              className="ml-2 text-sm lg:text-base text-gray-600"
-            >
+            <label htmlFor="agreeToTerms" className="ml-2 text-sm text-gray-600">
               I agree to the{" "}
               <Link href="#" className="text-green-600 hover:underline">
                 Terms of Service
@@ -140,41 +179,41 @@ export default function SignUpPage() {
           </div>
 
           <button
-            onClick={() => register(email, password, firstName, lastName)}
-            className="w-full bg-green-700 hover:bg-green-800 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-lg font-semibold transition-colors duration-200 text-base lg:text-lg"
+            type="submit"
+            className="w-full bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200"
           >
             Create account
           </button>
+        </form>
 
-          <div className="mt-6 text-center">
-            <p className="text-sm lg:text-base text-gray-600">
-              Already have an account?{" "}
-              <Link href="/sign-in" className="text-green-600 hover:underline">
-                Sign in
-              </Link>
-            </p>
-          </div>
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-600">
+            Already have an account?{" "}
+            <Link href="/sign-in" className="text-green-600 hover:underline">
+              Sign in
+            </Link>
+          </p>
         </div>
+
         <div className="my-6 flex items-center justify-between">
           <hr className="flex-1 border-gray-300" />
-          <span className="mx-4 text-sm lg:text-base text-gray-600">
-            Or continue with
-          </span>
+          <span className="mx-4 text-sm text-gray-600">Or continue with</span>
           <hr className="flex-1 border-gray-300" />
         </div>
+
         <div className="flex justify-center space-x-4">
-          <button className="w-12 h-12 lg:w-14 lg:h-14 bg-white border border-gray-300 rounded-full flex justify-center items-center hover:bg-gray-100 transition duration-200">
+          <button className="w-12 h-12 bg-white border border-gray-300 rounded-full flex justify-center items-center hover:bg-gray-100">
             <img
               src="https://img.icons8.com/ios-filled/50/000000/google-logo.png"
               alt="Google"
-              className="w-6 h-6 lg:w-7 lg:h-7 object-contain"
+              className="w-6 h-6 object-contain"
             />
           </button>
-          <button className="w-12 h-12 lg:w-14 lg:h-14 bg-white border border-gray-300 rounded-full flex justify-center items-center hover:bg-gray-100 transition duration-200">
+          <button className="w-12 h-12 bg-white border border-gray-300 rounded-full flex justify-center items-center hover:bg-gray-100">
             <img
               src="https://logos-world.net/wp-content/uploads/2023/08/X-Logo.jpg"
               alt="X"
-              className="w-8 h-8 lg:w-9 lg:h-9 object-contain"
+              className="w-8 h-8 object-contain"
             />
           </button>
         </div>

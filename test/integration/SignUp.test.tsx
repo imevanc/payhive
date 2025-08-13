@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SignUpPage from "@/app/sign-up/page";
 
@@ -135,14 +135,17 @@ describe("SignUpPage", () => {
     expect(screen.getByRole("checkbox")).toBeChecked();
   });
 
-  test("has required attributes on all form inputs", () => {
+  test("shows validation errors when required fields are empty", async () => {
     render(<SignUpPage />);
-
-    expect(screen.getByLabelText("First name")).toBeRequired();
-    expect(screen.getByLabelText("Last name")).toBeRequired();
-    expect(screen.getByLabelText("Email address")).toBeRequired();
-    expect(screen.getByLabelText("Password")).toBeRequired();
-    expect(screen.getByLabelText("Confirm password")).toBeRequired();
+  
+  
+    fireEvent.click(screen.getByRole("button", { name: /Create account/i }));
+  
+    
+    expect(await screen.findByText("First name is required")).toBeInTheDocument();
+    expect(screen.getByText("Last name is required")).toBeInTheDocument();
+    expect(screen.getByText("Email is required")).toBeInTheDocument();
+    expect(screen.getByText("Password is required")).toBeInTheDocument();
   });
 
   test("has correct input types", () => {
