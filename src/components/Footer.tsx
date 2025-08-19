@@ -1,7 +1,7 @@
 "use client";
-import { FC, FormEvent, useState } from "react";
+import {FC, FormEvent, useState} from "react";
 import Link from "next/link";
-import { getCurrentYear } from "@/utils";
+import {getCurrentYear} from "@/utils";
 
 const navigation = {
   main: [
@@ -67,16 +67,42 @@ const navigation = {
 export const Footer: FC<{
   isUserSubscribed: boolean;
   dataTestId: string;
-}> = ({ isUserSubscribed, dataTestId }) => {
-  const [email, setEmail] = useState<string>("");
-  const [isSubscribed, setIsSubscribed] = useState<boolean>(isUserSubscribed);
+}> = ({ isUserSubscribed, dataTestId }) => {const [email, setEmail] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [isSubscribed, setIsSubscribed] = useState(isUserSubscribed);
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
-  const handleNewsletterSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (email) {
+  const handleNewsletterSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSuccessMessage("");
+
+    try {
+      const response = await fetch("/api/registerForNewsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ subscriberEmail: email }),
+      });
+
+      const data = await response.json();
+      console.log("Newsletter response:", data);
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to subscribe");
+      }
+
       setIsSubscribed(true);
+      setSuccessMessage(data.message || "Thank you for subscribing! 🎉");
       setEmail("");
-      setTimeout(() => setIsSubscribed(false), 3000);
+    } catch (error: any) {
+      setSubmitError(error?.message || "An unexpected error occurred");
+      setIsSubscribed(false);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -95,50 +121,61 @@ export const Footer: FC<{
               <p className="text-gray-600 mb-6 font-semibold">
                 Get the latest updates and insights delivered to your inbox.
               </p>
-
               {isSubscribed ? (
                 <div
                   className="p-4 rounded-lg border border-green-200"
                   style={{
-                    backgroundColor: "#f0fdf4", // Tailwind green-50
+                    backgroundColor: "#f0fdf4",
                   }}
                 >
                   <p
                     className="font-semibold"
                     style={{
-                      color: "#15803d", // Tailwind green-700
+                      color: "#15803d",
                     }}
                   >
                     Thank you for subscribing! 🎉
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:border-green-500 transition-colors"
-                    style={{
-                      boxShadow: `0 0 0 2px #15803d33`, // green-700 with alpha
-                    }}
-                    onFocus={(e) => {
-                      e.target.style.borderColor = "#15803d"; // green-700
-                      e.target.style.boxShadow = `0 0 0 2px #15803d33`;
-                    }}
-                    onBlur={(e) => {
-                      e.target.style.borderColor = "#d1d5db";
-                      e.target.style.boxShadow = "none";
-                    }}
-                  />
-                  <button
-                    type="submit"
-                    className="cursor-pointer px-6 py-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-lg transition-colors"
-                  >
-                    Subscribe
-                  </button>
+                <form
+                  onSubmit={handleNewsletterSubmit}
+                  className="flex flex-col gap-2"
+                >
+                  <div className="flex gap-2">
+                    <input
+                      type="email"
+                      placeholder="Enter your email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:border-green-500 transition-colors"
+                      style={{
+                        boxShadow: `0 0 0 2px #15803d33`,
+                      }}
+                      onFocus={(e) => {
+                        e.target.style.borderColor = "#15803d";
+                        e.target.style.boxShadow = `0 0 0 2px #15803d33`;
+                      }}
+                      onBlur={(e) => {
+                        e.target.style.borderColor = "#d1d5db";
+                        e.target.style.boxShadow = "none";
+                      }}
+                      disabled={isSubmitting}
+                    />
+                    <button
+                      type="submit"
+                      className="cursor-pointer px-6 py-2 bg-green-700 hover:bg-green-800 text-white font-semibold rounded-lg transition-colors"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Subscribing..." : "Subscribe"}
+                    </button>
+                  </div>
+                  {submitError && (
+                    <p className="text-red-600 font-semibold mt-2">
+                      {submitError}
+                    </p>
+                  )}
                 </form>
               )}
             </div>
