@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { register as registerUser } from "@/auth/db";
+import { VALIDATE_PASSWORD } from "@/constants";
 
 type FormData = {
   firstName: string;
@@ -15,21 +16,21 @@ type FormData = {
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=[\]{}|;:,.<>?])[A-Za-z\d!@#$%^&*()_\-+=[\]{}|;:,.<>?]{8,12}$/;
 
-const validatePassword = (password: string): true | string => {
-  const isValidLength = password.length >= 8 && password.length <= 12;
-  const hasLower = /[a-z]/.test(password);
-  const hasUpper = /[A-Z]/.test(password);
-  const hasDigit = /\d/.test(password);
-  const hasSpecial = /[!@#$%^&*()_\-+=[\]{}|;:,.<>?]/.test(password);
+// const validatePassword = (password: string): true | string => {
+//   const isValidLength = password.length >= 8 && password.length <= 12;
+//   const hasLower = /[a-z]/.test(password);
+//   const hasUpper = /[A-Z]/.test(password);
+//   const hasDigit = /\d/.test(password);
+//   const hasSpecial = /[!@#$%^&*()_\-+=[\]{}|;:,.<>?]/.test(password);
 
-  if (!isValidLength) return "Password must be 8–12 characters long";
-  if (!hasLower) return "Include at least one lowercase letter";
-  if (!hasUpper) return "Include at least one uppercase letter";
-  if (!hasDigit) return "Include at least one number";
-  if (!hasSpecial) return "Include at least one special character";
+//   if (!isValidLength) return "Password must be 8–12 characters long";
+//   if (!hasLower) return "Include at least one lowercase letter";
+//   if (!hasUpper) return "Include at least one uppercase letter";
+//   if (!hasDigit) return "Include at least one number";
+//   if (!hasSpecial) return "Include at least one special character";
 
-  return true;
-};
+//   return true;
+// };
 
 export default function SignUpPage() {
   const {
@@ -161,12 +162,7 @@ export default function SignUpPage() {
               id="password"
               {...register("password", {
                 required: "Password is required",
-                validate: (value) => {
-                  if (!passwordRegex.test(value)) {
-                    return "Password must be 8–12 characters, include uppercase, lowercase, number, and special character";
-                  }
-                  return validatePassword(value);
-                },
+                validate: VALIDATE_PASSWORD,
               })}
               className={`w-full p-3 border rounded-md focus:outline-none focus:ring-2 ${
                 errors.password
