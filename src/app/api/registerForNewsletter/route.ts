@@ -6,7 +6,7 @@ import { NewsletterEmail } from "@/components";
 
 const prisma = new PrismaClient();
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   const errors: Array<string> = [];
 
   try {
@@ -59,11 +59,6 @@ export async function POST(request: NextRequest) {
       });
 
       if (result.success) {
-        console.log({
-          success: true,
-          message:
-            "Thank you for your interest! Check your email for newsletter information and account creation details.",
-        });
         return NextResponse.json(
           {
             success: true,
@@ -73,13 +68,16 @@ export async function POST(request: NextRequest) {
           { status: 200 },
         );
       } else {
-        console.error("Failed to send notification");
+        return NextResponse.json(
+          { error: "Failed to send notification" },
+          { status: 500 },
+        );
       }
     } catch (error) {
-      console.log({
-        success: false,
-        error: "Failed to register for newsletter",
-      });
+      return NextResponse.json(
+        { error: "Failed to register for newsletter" },
+        { status: 500 },
+      );
     }
   } catch (error) {
     await prisma.$disconnect();
