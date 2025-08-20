@@ -5,7 +5,13 @@ import { SendEmailParams } from "@/types";
 const resend = new Resend(process.env.RESEND_EMAIL_KEY);
 
 export const sendEmail = async (params: SendEmailParams) => {
-  const { indicator, to, from = "imevanc.dev@gmail.com" } = params;
+  const {
+    indicator,
+    to,
+    from = "imevanc.dev@gmail.com",
+    html,
+    subject,
+  } = params;
 
   try {
     let emailData;
@@ -14,14 +20,8 @@ export const sendEmail = async (params: SendEmailParams) => {
       emailData = {
         from,
         to: [to],
-        subject: "Welcome to our Newsletter!",
-        html: `
-          <h2>Welcome to our Newsletter!</h2>
-          <p>Thank you for subscribing to our newsletter. We're excited to have you join our community!</p>
-          <p>You'll receive weekly updates with the latest content and insights.</p>
-          <p>Best regards,<br>The Newsletter Team</p>
-        `,
-        text: "Welcome to our Newsletter! Thank you for subscribing. You'll receive weekly updates with the latest content and insights.",
+        html,
+        subject,
       };
     } else if (indicator === "contact-us") {
       const { subject, html, text } = params;

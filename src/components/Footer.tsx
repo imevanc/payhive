@@ -1,7 +1,7 @@
 "use client";
-import {FC, FormEvent, useState} from "react";
+import { FC, FormEvent, useState } from "react";
 import Link from "next/link";
-import {getCurrentYear} from "@/utils";
+import { getCurrentYear } from "@/utils";
 
 const navigation = {
   main: [
@@ -67,7 +67,8 @@ const navigation = {
 export const Footer: FC<{
   isUserSubscribed: boolean;
   dataTestId: string;
-}> = ({ isUserSubscribed, dataTestId }) => {const [email, setEmail] = useState<string>("");
+}> = ({ isUserSubscribed, dataTestId }) => {
+  const [email, setEmail] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubscribed, setIsSubscribed] = useState(isUserSubscribed);
@@ -134,7 +135,7 @@ export const Footer: FC<{
                       color: "#15803d",
                     }}
                   >
-                    Thank you for subscribing! 🎉
+                    {successMessage}
                   </p>
                 </div>
               ) : (
