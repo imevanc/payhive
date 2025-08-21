@@ -202,4 +202,52 @@ describe("SignUpPage", () => {
     expect(screen.getByLabelText("First name")).toHaveValue("");
     expect(screen.getByRole("checkbox")).toBeChecked();
   });
+
+  test("shows all password complexity errors for weak password", async () => {
+    const user = await setup();
+
+    await user.type(screen.getByLabelText("Password"), "abc");
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
+
+    expect(screen.getByText("• Must be 8–12 characters")).toBeInTheDocument();
+    expect(
+      screen.getByText("• Must include an uppercase letter"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("• Must include a number")).toBeInTheDocument();
+    expect(
+      screen.getByText("• Must include a special character"),
+    ).toBeInTheDocument();
+  });
+
+  test("shows error when confirm password does not match", async () => {
+    const user = await setup();
+
+    await user.type(screen.getByLabelText("Password"), "Password123!");
+    await user.type(
+      screen.getByPlaceholderText("Confirm password"),
+      "Mismatch123!",
+    );
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
+
+    expect(screen.getByText("Passwords do not match")).toBeInTheDocument();
+  });
+
+  test("shows error for invalid first name characters", async () => {
+    const user = await setup();
+
+    await user.type(screen.getByLabelText("First name"), "John123");
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
+
+    expect(
+      screen.getByText("Only letters, apostrophes, and dashes allowed"),
+    ).toBeInTheDocument();
+  });
+
+  test("shows error when terms checkbox is not checked", async () => {
+    const user = await setup();
+
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
+
+    expect(screen.getByText("You must agree to the terms")).toBeInTheDocument();
+  });
 });
