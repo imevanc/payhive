@@ -167,6 +167,7 @@ export async function POST(request: NextRequest) {
         }),
       );
       const result = await sendEmail({
+        indicator: "contact-us",
         to: "imevanc.dev@gmail.com",
         subject: `[SUPPORT] New Contact: ${firstName} ${lastName}`,
         html: supportEmailHtml,

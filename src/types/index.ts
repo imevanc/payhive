@@ -3,3 +3,4 @@ export type { ContactFormData } from "./ContactFormData";
 export type { NavigationTab } from "./NavigationTab";
 export type { AuthWrapperProps } from "./AuthWrapperProps";
 export type { FormData } from "./FormData";
+export type { SendEmailParams } from "./SendEmailParams";
