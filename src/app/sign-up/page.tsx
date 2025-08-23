@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { register } from "@/auth/db";
+import {useState} from "react";
+import {register} from "@/auth/db";
 
 export default function SignUpPage() {
   const [firstName, setFirstName] = useState<string>("");
