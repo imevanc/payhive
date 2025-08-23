@@ -1,3 +1,10 @@
+## [1.13.1](https://github.com/imevanc/payhive/compare/v1.13.0...v1.13.1) (2025-08-23)
+
+
+### Bug Fixes
+
+* update schema ([#120](https://github.com/imevanc/payhive/issues/120)) ([42bfdec](https://github.com/imevanc/payhive/commit/42bfdec0a9dc7a0a8e8b444db54e3b480e10ca62))
+
 # [1.13.0](https://github.com/imevanc/payhive/compare/v1.12.3...v1.13.0) (2025-08-20)
 
 
