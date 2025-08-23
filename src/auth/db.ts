@@ -1,7 +1,7 @@
 "use server";
-import {PrismaClient} from "../../generated/prisma";
-import {genSaltSync, hashSync} from "bcrypt";
-import {redirect} from "next/navigation";
+import { PrismaClient } from "../../generated/prisma";
+import { genSaltSync, hashSync } from "bcrypt";
+import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 
@@ -21,16 +21,16 @@ export async function createUser(
 ) {
   const salt = genSaltSync(10);
   const hash = hashSync(password, salt);
-  console.log("herehere")
+  console.log("herehere");
 
-    // return prisma.user.create({
-    //   data: {
-    //     email,
-    //     password: hash,
-    //     firstName,
-    //     lastName,
-    //   },
-    // });
+  // return prisma.user.create({
+  //   data: {
+  //     email,
+  //     password: hash,
+  //     firstName,
+  //     lastName,
+  //   },
+  // });
 }
 
 export async function disconnect() {
@@ -45,9 +45,9 @@ export async function register(
 ) {
   const user = await getUser(email);
   if (user) {
-     return "User already exists";
-   } else {
-     await createUser(email, password, firstName, lastName);
-     redirect("/sign-in");
-   }
+    return "User already exists";
+  } else {
+    await createUser(email, password, firstName, lastName);
+    redirect("/sign-in");
+  }
 }
