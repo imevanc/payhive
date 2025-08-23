@@ -1,3 +1,11 @@
+## [1.13.2](https://github.com/imevanc/payhive/compare/v1.13.1...v1.13.2) (2025-08-23)
+
+
+### Bug Fixes
+
+* vercel fix ([bfdfda2](https://github.com/imevanc/payhive/commit/bfdfda2d0a5cd62bd1fdf7d5aa972544d8465beb))
+* vercel fix ([da510e6](https://github.com/imevanc/payhive/commit/da510e6a954c80ccb10d0f8613dd37303fc4cd15))
+
 ## [1.13.1](https://github.com/imevanc/payhive/compare/v1.13.0...v1.13.1) (2025-08-23)
 
 
