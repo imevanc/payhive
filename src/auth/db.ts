@@ -1,7 +1,7 @@
 "use server";
-import {PrismaClient} from "@prisma/client";
-import {genSaltSync, hashSync} from "bcrypt";
-import {redirect} from "next/navigation";
+import { PrismaClient } from "@prisma/client";
+import { genSaltSync, hashSync } from "bcrypt";
+import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 

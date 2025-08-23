@@ -1,9 +1,9 @@
-import {NextRequest, NextResponse} from "next/server";
-import {ContactFormData} from "@/types";
-import {isValidEmail, sendEmail} from "@/utils";
-import {PrismaClient} from "@prisma/client";
-import {render} from "@react-email/render";
-import {ContactNotificationEmail} from "@/components";
+import { NextRequest, NextResponse } from "next/server";
+import { ContactFormData } from "@/types";
+import { isValidEmail, sendEmail } from "@/utils";
+import { PrismaClient } from "@prisma/client";
+import { render } from "@react-email/render";
+import { ContactNotificationEmail } from "@/components";
 
 const prisma = new PrismaClient();
 
