@@ -2,17 +2,27 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SignUpPage from "@/app/sign-up/page";
 
+jest.mock("next/router", () => ({
+  useRouter: jest.fn(),
+}));
+
 describe("SignUpPage", () => {
-  test("renders the signup page with all form elements", () => {
+  const setup = async () => {
     render(<SignUpPage />);
+    return await userEvent.setup();
+  };
+
+  test("renders all core form elements", async () => {
+    await setup();
 
     expect(screen.getByText("PayHive")).toBeInTheDocument();
     expect(screen.getByText("Create your account")).toBeInTheDocument();
-    expect(screen.getByLabelText("First name")).toBeInTheDocument();
-    expect(screen.getByLabelText("Last name")).toBeInTheDocument();
-    expect(screen.getByLabelText("Email address")).toBeInTheDocument();
-    expect(screen.getByLabelText("Password")).toBeInTheDocument();
-    expect(screen.getByLabelText("Confirm password")).toBeInTheDocument();
+
+    const labels = ["First name", "Last name", "Email address", "Password"];
+    labels.forEach((label) => {
+      expect(screen.getByLabelText(label)).toBeInTheDocument();
+    });
+
     expect(screen.getByRole("checkbox")).toBeInTheDocument();
     expect(screen.getByText("Terms of Service")).toBeInTheDocument();
     expect(screen.getByText("Privacy Policy")).toBeInTheDocument();
@@ -23,93 +33,48 @@ describe("SignUpPage", () => {
     expect(screen.getByText("Sign in")).toBeInTheDocument();
   });
 
-  test("renders social login buttons", () => {
-    render(<SignUpPage />);
+  test("has correct link destinations", async () => {
+    await setup();
 
-    const socialButtons = screen.getAllByRole("button");
-    expect(socialButtons).toHaveLength(3);
-    expect(screen.getByAltText("Google")).toBeInTheDocument();
-    expect(screen.getByAltText("X")).toBeInTheDocument();
+    expect(screen.getByText("PayHive").closest("a")).toHaveAttribute(
+      "href",
+      "/",
+    );
+    expect(screen.getByText("Sign in").closest("a")).toHaveAttribute(
+      "href",
+      "/sign-in",
+    );
   });
 
-  test("has correct link navigation", () => {
-    render(<SignUpPage />);
+  test("updates input fields correctly", async () => {
+    const user = await setup();
 
-    const homeLink = screen.getByText("PayHive").closest("a");
-    expect(homeLink).toHaveAttribute("href", "/");
+    await user.type(screen.getByLabelText("First name"), "John");
+    await user.type(screen.getByLabelText("Last name"), "Doe");
+    await user.type(screen.getByLabelText("Email address"), "john@example.com");
+    await user.type(screen.getByLabelText("Password"), "Password123!");
 
-    const signInLink = screen.getByText("Sign in").closest("a");
-    expect(signInLink).toHaveAttribute("href", "/sign-in");
+    expect(screen.getByLabelText("First name")).toHaveValue("John");
+    expect(screen.getByLabelText("Last name")).toHaveValue("Doe");
+    expect(screen.getByLabelText("Email address")).toHaveValue(
+      "john@example.com",
+    );
+    expect(screen.getByLabelText("Password")).toHaveValue("Password123!");
   });
 
-  test("updates first name input when user types", async () => {
-    const user = userEvent.setup();
-    render(<SignUpPage />);
-
-    const firstNameInput = screen.getByLabelText("First name");
-    await user.type(firstNameInput, "John");
-
-    expect(firstNameInput).toHaveValue("John");
-  });
-
-  test("updates last name input when user types", async () => {
-    const user = userEvent.setup();
-    render(<SignUpPage />);
-
-    const lastNameInput = screen.getByLabelText("Last name");
-    await user.type(lastNameInput, "Doe");
-
-    expect(lastNameInput).toHaveValue("Doe");
-  });
-
-  test("updates email input when user types", async () => {
-    const user = userEvent.setup();
-    render(<SignUpPage />);
-
-    const emailInput = screen.getByLabelText("Email address");
-    await user.type(emailInput, "john.doe@example.com");
-
-    expect(emailInput).toHaveValue("john.doe@example.com");
-  });
-
-  test("updates password input when user types", async () => {
-    const user = userEvent.setup();
-    render(<SignUpPage />);
-
-    const passwordInput = screen.getByLabelText("Password");
-    await user.type(passwordInput, "password123");
-
-    expect(passwordInput).toHaveValue("password123");
-  });
-
-  test("updates confirm password input when user types", async () => {
-    const user = userEvent.setup();
-    render(<SignUpPage />);
-
-    const confirmPasswordInput = screen.getByLabelText("Confirm password");
-    await user.type(confirmPasswordInput, "password123");
-
-    expect(confirmPasswordInput).toHaveValue("password123");
-  });
-
-  test("toggles terms checkbox when clicked", async () => {
-    const user = userEvent.setup();
-    render(<SignUpPage />);
-
+  test("toggles checkbox state independently", async () => {
+    const user = await setup();
     const checkbox = screen.getByRole("checkbox");
 
     expect(checkbox).not.toBeChecked();
-
     await user.click(checkbox);
     expect(checkbox).toBeChecked();
-
     await user.click(checkbox);
     expect(checkbox).not.toBeChecked();
   });
 
-  test("can fill out complete form and submit", async () => {
-    const user = userEvent.setup();
-    render(<SignUpPage />);
+  test("submits form with valid data", async () => {
+    const user = await setup();
 
     await user.type(screen.getByLabelText("First name"), "John");
     await user.type(screen.getByLabelText("Last name"), "Doe");
@@ -117,155 +82,172 @@ describe("SignUpPage", () => {
       screen.getByLabelText("Email address"),
       "john.doe@example.com",
     );
-    await user.type(screen.getByLabelText("Password"), "password123");
-    await user.type(screen.getByLabelText("Confirm password"), "password123");
+    await user.type(screen.getByLabelText("Password"), "Password123!");
     await user.click(screen.getByRole("checkbox"));
-
     await user.click(screen.getByRole("button", { name: "Create account" }));
 
-    expect(screen.getByLabelText("First name")).toHaveValue("John");
-    expect(screen.getByLabelText("Last name")).toHaveValue("Doe");
-    expect(screen.getByLabelText("Email address")).toHaveValue(
-      "john.doe@example.com",
-    );
-    expect(screen.getByLabelText("Password")).toHaveValue("password123");
-    expect(screen.getByLabelText("Confirm password")).toHaveValue(
-      "password123",
-    );
     expect(screen.getByRole("checkbox")).toBeChecked();
   });
 
-  test("has required attributes on all form inputs", () => {
-    render(<SignUpPage />);
+  test("shows required field errors on empty submit", async () => {
+    const user = await setup();
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
 
-    expect(screen.getByLabelText("First name")).toBeRequired();
-    expect(screen.getByLabelText("Last name")).toBeRequired();
-    expect(screen.getByLabelText("Email address")).toBeRequired();
-    expect(screen.getByLabelText("Password")).toBeRequired();
-    expect(screen.getByLabelText("Confirm password")).toBeRequired();
+    expect(
+      await screen.findByText("First name is required"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("Last name is required")).toBeInTheDocument();
+    expect(screen.getByText("Email is required")).toBeInTheDocument();
+    expect(screen.getByText("Password is required")).toBeInTheDocument();
+    expect(
+      screen.getByText("Please confirm your password"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("You must agree to the terms")).toBeInTheDocument();
   });
 
-  test("has correct input types", () => {
-    render(<SignUpPage />);
+  test("shows password complexity errors", async () => {
+    const user = await setup();
 
-    expect(screen.getByLabelText("First name")).toHaveAttribute("type", "text");
-    expect(screen.getByLabelText("Last name")).toHaveAttribute("type", "text");
-    expect(screen.getByLabelText("Email address")).toHaveAttribute(
-      "type",
-      "email",
-    );
-    expect(screen.getByLabelText("Password")).toHaveAttribute(
-      "type",
-      "password",
-    );
-    expect(screen.getByLabelText("Confirm password")).toHaveAttribute(
-      "type",
-      "password",
-    );
+    await user.type(screen.getByLabelText("Password"), "pass");
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
+
+    expect(screen.getByText("• Must be 8–12 characters")).toBeInTheDocument();
+    expect(
+      screen.getByText("• Must include an uppercase letter"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("• Must include a number")).toBeInTheDocument();
+    expect(
+      screen.getByText("• Must include a special character"),
+    ).toBeInTheDocument();
   });
 
-  test("has appropriate placeholders", () => {
-    render(<SignUpPage />);
+  test("has correct input types and placeholders", async () => {
+    await setup();
+
+    const fields = [
+      { label: "First name", type: "text", placeholder: "First name" },
+      { label: "Last name", type: "text", placeholder: "Last name" },
+      { label: "Email address", type: "email", placeholder: "Email address" },
+      { label: "Password", type: "password", placeholder: "Password" },
+    ];
+
+    fields.forEach(({ label, type, placeholder }) => {
+      const input = screen.getByLabelText(label);
+      expect(input).toHaveAttribute("type", type);
+      expect(input).toHaveAttribute("placeholder", placeholder);
+    });
+  });
+
+  test("has correct label associations", async () => {
+    await setup();
 
     expect(screen.getByLabelText("First name")).toHaveAttribute(
-      "placeholder",
-      "First name",
+      "id",
+      "firstName",
     );
     expect(screen.getByLabelText("Last name")).toHaveAttribute(
-      "placeholder",
-      "Last name",
+      "id",
+      "lastName",
     );
     expect(screen.getByLabelText("Email address")).toHaveAttribute(
-      "placeholder",
-      "Email address",
+      "id",
+      "email",
     );
-    expect(screen.getByLabelText("Password")).toHaveAttribute(
-      "placeholder",
-      "Password",
-    );
-    expect(screen.getByLabelText("Confirm password")).toHaveAttribute(
-      "placeholder",
-      "Confirm password",
-    );
-  });
-
-  test("has proper form labels associated with inputs", () => {
-    render(<SignUpPage />);
-
-    const firstNameInput = screen.getByLabelText("First name");
-    expect(firstNameInput).toHaveAttribute("id", "firstName");
-
-    const lastNameInput = screen.getByLabelText("Last name");
-    expect(lastNameInput).toHaveAttribute("id", "lastName");
-
-    const emailInput = screen.getByLabelText("Email address");
-    expect(emailInput).toHaveAttribute("id", "email");
-
-    const passwordInput = screen.getByLabelText("Password");
-    expect(passwordInput).toHaveAttribute("id", "password");
-
-    const confirmPasswordInput = screen.getByLabelText("Confirm password");
-    expect(confirmPasswordInput).toHaveAttribute("id", "confirmPassword");
-  });
-
-  test("has proper checkbox label association", () => {
-    render(<SignUpPage />);
+    expect(screen.getByLabelText("Password")).toHaveAttribute("id", "password");
 
     const checkbox = screen.getByRole("checkbox");
     expect(checkbox).toHaveAttribute("id", "agreeToTerms");
-
-    const label = screen.getByText(/I agree to the/);
-    expect(label).toHaveAttribute("for", "agreeToTerms");
   });
 
-  test("has proper alt text for images", () => {
-    render(<SignUpPage />);
+  test("renders social login buttons with alt text and hover states", async () => {
+    await setup();
 
-    expect(screen.getByAltText("Google")).toBeInTheDocument();
-    expect(screen.getByAltText("X")).toBeInTheDocument();
+    const socialImages = ["Google", "X"];
+    socialImages.forEach((alt) => {
+      expect(screen.getByAltText(alt)).toBeInTheDocument();
+    });
+
+    const socialButtons = screen
+      .getAllByRole("button")
+      .filter((btn) => btn.querySelector("img"));
+
+    expect(socialButtons).toHaveLength(2);
+    socialButtons.forEach((btn) => {
+      expect(btn).toHaveClass("hover:bg-gray-100");
+    });
   });
 
-  test("maintains independent state for each form field", async () => {
-    const user = userEvent.setup();
-    render(<SignUpPage />);
+  test("maintains independent state across fields", async () => {
+    const user = await setup();
 
     await user.type(screen.getByLabelText("First name"), "John");
     await user.type(screen.getByLabelText("Email address"), "john@example.com");
-    await user.type(screen.getByLabelText("Password"), "password");
+    await user.type(screen.getByLabelText("Password"), "Password123!");
 
     expect(screen.getByLabelText("First name")).toHaveValue("John");
     expect(screen.getByLabelText("Last name")).toHaveValue("");
     expect(screen.getByLabelText("Email address")).toHaveValue(
       "john@example.com",
     );
-    expect(screen.getByLabelText("Password")).toHaveValue("password");
-    expect(screen.getByLabelText("Confirm password")).toHaveValue("");
+    expect(screen.getByLabelText("Password")).toHaveValue("Password123!");
   });
 
-  test("checkbox state is independent of other form fields", async () => {
-    const user = userEvent.setup();
-    render(<SignUpPage />);
+  test("checkbox state is independent of other fields", async () => {
+    const user = await setup();
 
     await user.type(screen.getByLabelText("First name"), "John");
     await user.click(screen.getByRole("checkbox"));
-
     await user.clear(screen.getByLabelText("First name"));
 
     expect(screen.getByLabelText("First name")).toHaveValue("");
     expect(screen.getByRole("checkbox")).toBeChecked();
   });
 
-  test("renders social login buttons with hover states", () => {
-    render(<SignUpPage />);
+  test("shows all password complexity errors for weak password", async () => {
+    const user = await setup();
 
-    const socialButtons = screen
-      .getAllByRole("button")
-      .filter((button) => button.querySelector("img"));
+    await user.type(screen.getByLabelText("Password"), "abc");
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
 
-    expect(socialButtons).toHaveLength(2);
+    expect(screen.getByText("• Must be 8–12 characters")).toBeInTheDocument();
+    expect(
+      screen.getByText("• Must include an uppercase letter"),
+    ).toBeInTheDocument();
+    expect(screen.getByText("• Must include a number")).toBeInTheDocument();
+    expect(
+      screen.getByText("• Must include a special character"),
+    ).toBeInTheDocument();
+  });
 
-    socialButtons.forEach((button) => {
-      expect(button).toHaveClass("hover:bg-gray-100");
-    });
+  test("shows error when confirm password does not match", async () => {
+    const user = await setup();
+
+    await user.type(screen.getByLabelText("Password"), "Password123!");
+    await user.type(
+      screen.getByPlaceholderText("Confirm password"),
+      "Mismatch123!",
+    );
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
+
+    expect(screen.getByText("Passwords do not match")).toBeInTheDocument();
+  });
+
+  test("shows error for invalid first name characters", async () => {
+    const user = await setup();
+
+    await user.type(screen.getByLabelText("First name"), "John123");
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
+
+    expect(
+      screen.getByText("Only letters, apostrophes, and dashes allowed"),
+    ).toBeInTheDocument();
+  });
+
+  test("shows error when terms checkbox is not checked", async () => {
+    const user = await setup();
+
+    await user.click(screen.getByRole("button", { name: /Create account/i }));
+
+    expect(screen.getByText("You must agree to the terms")).toBeInTheDocument();
   });
 });
