@@ -1,3 +1,12 @@
+## [1.13.3](https://github.com/imevanc/payhive/compare/v1.13.2...v1.13.3) (2025-08-23)
+
+
+### Bug Fixes
+
+* update unit tests with @prisma/client ([aeccea5](https://github.com/imevanc/payhive/commit/aeccea586585ec4c34db9ea0da9730a3b83fcdaa))
+* vercel fix ([8e87275](https://github.com/imevanc/payhive/commit/8e87275f3081f5f9ca48ab846f20d7094e7dddf0))
+* vercel fix ([25cf47a](https://github.com/imevanc/payhive/commit/25cf47a76dd13f478c343c8337581d1b9b5d7d8f))
+
 ## [1.13.2](https://github.com/imevanc/payhive/compare/v1.13.1...v1.13.2) (2025-08-23)
 
 
