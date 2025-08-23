@@ -21,16 +21,15 @@ export async function createUser(
 ) {
   const salt = genSaltSync(10);
   const hash = hashSync(password, salt);
-  console.log("herehere");
 
-  // return prisma.user.create({
-  //   data: {
-  //     email,
-  //     password: hash,
-  //     firstName,
-  //     lastName,
-  //   },
-  // });
+  return prisma.user.create({
+    data: {
+      email,
+      password: hash,
+      firstName,
+      lastName,
+    },
+  });
 }
 
 export async function disconnect() {
