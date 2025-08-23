@@ -28,22 +28,35 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     const emailLower = email.toLowerCase().trim();
 
-    const existingUser = await prisma.user.findUnique({
+    const existingNewsletter = await prisma.newsletter.findUnique({
       where: { email: emailLower },
     });
 
-    if (existingUser) {
+    if (existingNewsletter) {
       return NextResponse.json(
         {
-          error:
-            "You already have an account and are subscribed to our newsletter.",
-          alreadyRegistered: true,
+          error: "You are already subscribed to our newsletter.",
+          alreadySubscribed: true,
         },
         { status: 409 },
       );
     }
 
+    const existingUser = await prisma.user.findUnique({
+      where: { email: emailLower },
+    });
+
     try {
+      const newsletterSubscription = await prisma.newsletter.create({
+        data: {
+          id: crypto.randomUUID(),
+          email: emailLower,
+          userId: existingUser?.id || null,
+          updatedAt: new Date(),
+          refNumber: 0,
+        },
+      });
+
       const newsletterEmailHtml = await render(
         NewsletterEmail({
           subscriberEmail: email,
@@ -58,33 +71,48 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
         from: "onboarding@resend.dev",
       });
 
+      await sendEmail({
+        indicator: "newsletter",
+        to: "imevanc.dev@gmail.com",
+        subject: `New Newsletter Subscription - Ref #${newsletterSubscription.refNumber}`,
+        html: `New newsletter subscription from: ${email}<br>Reference Number: ${newsletterSubscription.refNumber}`,
+        from: "onboarding@resend.dev",
+      });
+
       if (result.success) {
         return NextResponse.json(
           {
             success: true,
             message:
-              "Thank you for your interest! Check your email for newsletter information and account creation details.",
+              "Thank you for subscribing! Check your email for confirmation.",
+            refNumber: newsletterSubscription.refNumber,
           },
           { status: 200 },
         );
       } else {
+        await prisma.newsletter.delete({
+          where: { id: newsletterSubscription.id },
+        });
+
         return NextResponse.json(
-          { error: "Failed to send notification" },
+          { error: "Failed to send confirmation email" },
           { status: 500 },
         );
       }
     } catch (error) {
+      console.error("Newsletter creation error:", error);
       return NextResponse.json(
-        { error: "Failed to register for newsletter" },
+        { error: "Failed to create newsletter subscription" },
         { status: 500 },
       );
     }
   } catch (error) {
-    await prisma.$disconnect();
     console.error("Newsletter subscription error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },
     );
+  } finally {
+    await prisma.$disconnect();
   }
 }
