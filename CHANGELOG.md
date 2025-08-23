@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/imevanc/payhive/compare/v1.13.3...v1.14.0) (2025-08-23)
+
+
+### Features
+
+* add analytics and speed insights ([#121](https://github.com/imevanc/payhive/issues/121)) ([94239ac](https://github.com/imevanc/payhive/commit/94239ac1163f4f382c8d87b688febdfaef929ff2))
+
 ## [1.13.3](https://github.com/imevanc/payhive/compare/v1.13.2...v1.13.3) (2025-08-23)
 
 
