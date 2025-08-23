@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { getServerSession } from "next-auth";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AuthenticatedHeader, AuthWrapper, Footer, Header } from "@/components";
 import { TABS } from "@/constants";
 import { AuthSessionProvider } from "@/providers";
@@ -21,6 +23,8 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Analytics />
+        <SpeedInsights />
         <AuthSessionProvider session={session}>
           <div className="flex flex-col h-full w-full">
             {session ? (
