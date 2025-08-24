@@ -27,6 +27,7 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "bcrypt": "^6.0.0",
+    "chart.js": "^4.5.0",
     "next": "15.5.0",
     "next-auth": "^4.24.11",
     "postgres": "^3.4.7",
