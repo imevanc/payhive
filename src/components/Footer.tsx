@@ -112,7 +112,7 @@ export const Footer: FC<{
       className="bg-white/95 backdrop-blur-sm border-t border-gray-200"
       data-testid={`footer-${dataTestId}`}
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-10xl">
         <div className="px-6 py-12 lg:px-8">
           <div className="mb-12 text-center">
             <div className="mx-auto max-w-md">
@@ -213,7 +213,7 @@ export const Footer: FC<{
             ))}
           </div>
 
-          <div className="border-t border-gray-200 pt-8">
+          <div className="border-t border-gray-200 pt-8 w-full">
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
               <Link href="/" className="flex items-center">
                 <span className="text-2xl font-bold text-gray-900">
